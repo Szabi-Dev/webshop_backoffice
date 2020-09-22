@@ -27,6 +27,13 @@ public interface UserFacade {
      */
     CollectionModel<UserData> fetchAllUsers();
 
+    /**
+     * Delete user by Id
+     *
+     * @param id - id
+     * @return id of deleted user
+     */
+    Optional<Long> deleteUserById(Long id);
 
 
 }

@@ -19,12 +19,14 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 public class UserDataAssembler implements RepresentationModelAssembler<UserModel, UserData> {
 
     private static String ALL_USERS_REL = "users";
+    private static String DELETE_USER_REL = "delete";
 
     @Override
     public UserData toModel(UserModel entity) {
         UserData userData = convert(entity);
         populateSelfLink(userData);
         populateLinkToAll(userData, ALL_USERS_REL);
+        populateDeleteLink(userData, DELETE_USER_REL);
         return userData;
     }
 
@@ -53,4 +55,7 @@ public class UserDataAssembler implements RepresentationModelAssembler<UserModel
         userData.add(linkTo(methodOn(UserController.class).fetchAllUsers()).withRel(rel));
     }
 
+    private void populateDeleteLink(UserData userData, String rel){
+        userData.add(linkTo(methodOn(UserController.class).deleteUserById(userData.getId())).withRel(rel));
+    }
 }

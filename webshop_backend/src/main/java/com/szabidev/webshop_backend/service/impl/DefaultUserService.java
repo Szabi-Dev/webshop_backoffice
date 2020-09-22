@@ -27,4 +27,16 @@ public class DefaultUserService implements UserService {
     public List<UserModel> findAllUsers() {
         return userRepository.findAll();
     }
+
+    @Override
+    public Optional<UserModel> deleteUserById(Long id) {
+        Optional<UserModel> userModel = userRepository.findById(id);
+        if (userModel.isPresent()){
+            userRepository.deleteById(id);
+            return userModel;
+        }
+        return Optional.empty();
+    }
+
+
 }

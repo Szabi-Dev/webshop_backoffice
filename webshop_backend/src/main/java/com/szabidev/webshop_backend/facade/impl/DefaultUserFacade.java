@@ -3,6 +3,7 @@ package com.szabidev.webshop_backend.facade.impl;
 import com.szabidev.webshop_backend.facade.UserFacade;
 import com.szabidev.webshop_backend.facade.assembler.UserDataAssembler;
 import com.szabidev.webshop_backend.facade.dto.UserData;
+import com.szabidev.webshop_backend.model.UserModel;
 import com.szabidev.webshop_backend.service.UserService;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.stereotype.Component;
@@ -31,5 +32,10 @@ public class DefaultUserFacade implements UserFacade {
     @Override
     public CollectionModel<UserData> fetchAllUsers(){
         return userDataAssembler.toCollectionModel(userService.findAllUsers());
+    }
+
+    @Override
+    public Optional<Long> deleteUserById(Long id) {
+        return userService.deleteUserById(id).map(UserModel::getId);
     }
 }
