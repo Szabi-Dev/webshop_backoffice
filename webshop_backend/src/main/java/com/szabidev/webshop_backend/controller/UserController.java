@@ -11,6 +11,6 @@ public class UserController {
 
     @GetMapping
     public String getEnv(){
-        return "hello world!fdsaf";
+        return "hello world!";
     }
 }
