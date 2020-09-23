@@ -1,5 +1,6 @@
 package com.szabidev.webshop_backend.facade;
 
+import com.szabidev.webshop_backend.controller.dto.UserJson;
 import com.szabidev.webshop_backend.facade.dto.UserData;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.stereotype.Component;
@@ -35,5 +36,19 @@ public interface UserFacade {
      */
     Optional<Long> deleteUserById(Long id);
 
+    /**
+     * Create a new user
+     *
+     * @param userJson - json coming from the request
+     * @return {@link Optional<UserData>}
+     */
+    Optional<UserData> createUser(UserJson userJson);
+
+    /**
+     * Update a user
+     * @param userJson - user with the update
+     * @return {@link Optional<UserData>}
+     */
+    Optional<UserData> updateUser(UserJson userJson, Long id);
 
 }

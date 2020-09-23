@@ -6,7 +6,6 @@ import com.szabidev.webshop_backend.facade.dto.UserData;
 import com.szabidev.webshop_backend.model.UserModel;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.server.RepresentationModelAssembler;
-import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -20,6 +19,7 @@ public class UserDataAssembler implements RepresentationModelAssembler<UserModel
 
     private static String ALL_USERS_REL = "users";
     private static String DELETE_USER_REL = "delete";
+    private static String CREATE_USER_REL = "create";
 
     @Override
     public UserData toModel(UserModel entity) {
@@ -35,7 +35,8 @@ public class UserDataAssembler implements RepresentationModelAssembler<UserModel
         List<UserData> userDataList = new ArrayList<>();
         entities.forEach(entity ->  userDataList.add(this.toModel(entity)));
         return CollectionModel.of(userDataList,
-                linkTo(methodOn(UserController.class).fetchAllUsers()).withSelfRel() );
+                linkTo(methodOn(UserController.class).fetchAllUsers()).withSelfRel(),
+                linkTo(methodOn(UserController.class).createUser(null)).withRel(CREATE_USER_REL));
     }
 
     private UserData convert(UserModel userModel){

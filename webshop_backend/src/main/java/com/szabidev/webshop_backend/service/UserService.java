@@ -31,4 +31,21 @@ public interface UserService {
      */
     Optional<UserModel> deleteUserById(Long id);
 
+    /**
+     * Create new user
+     *
+     * @param userModel - {@link UserModel}
+     * @return {@link Optional<UserModel>}
+     */
+    Optional<UserModel> createUser(UserModel userModel);
+
+    /**
+     * Update user
+     *
+     * @param userModel - {@link UserModel}
+     * @param id - id of the user to be updated
+     * @return {@link UserModel}
+     */
+    Optional<UserModel> updateUser(UserModel userModel, Long id);
+
 }
