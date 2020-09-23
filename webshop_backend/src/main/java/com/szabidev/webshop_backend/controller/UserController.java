@@ -2,6 +2,7 @@ package com.szabidev.webshop_backend.controller;
 
 import com.szabidev.webshop_backend.controller.dto.UserJson;
 import com.szabidev.webshop_backend.facade.UserFacade;
+import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
