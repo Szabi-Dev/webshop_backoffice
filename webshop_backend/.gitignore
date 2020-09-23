@@ -2,3 +2,7 @@
 .gradle
 
 build
+
+.env
+
+db_dump/
