@@ -58,5 +58,15 @@ public class DefaultUserService implements UserService {
 
     }
 
+    @Override
+    public Optional<UserModel> patchUser(UserModel userModel, Long id) {
+        if (!userRepository.existsById(id)){
+            return Optional.empty();
+        }
+        UserModel userToBeUpdated = userRepository.getOne(id);
+        userPopulator.populatePatch(userToBeUpdated, userModel);
+        return Optional.of(userRepository.save(userToBeUpdated));
+    }
+
 
 }

@@ -48,4 +48,13 @@ public interface UserService {
      */
     Optional<UserModel> updateUser(UserModel userModel, Long id);
 
+    /**
+     * Patch user (update only the subset of attributes)
+     *
+     * @param userModel - model sent in the request
+     * @param id - id of the user to be updated
+     * @return {@link Optional<UserModel>}
+     */
+    Optional<UserModel> patchUser(UserModel userModel, Long id);
+
 }

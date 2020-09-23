@@ -51,4 +51,12 @@ public interface UserFacade {
      */
     Optional<UserData> updateUser(UserJson userJson, Long id);
 
+    /**
+     * Patch a user (update just specific fields)
+     * @param userJson - json holding the data
+     * @param id - id of the user to be updated
+     * @return {@link Optional<UserData>}
+     */
+    Optional<UserData> patchUser(UserJson userJson, Long id);
+
 }

@@ -35,15 +35,17 @@ public class UserController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> updateUser(@PathVariable Long id, @RequestBody UserJson userJson){
+    public ResponseEntity<?> replaceUser(@PathVariable Long id, @RequestBody UserJson userJson){
         return userFacade.updateUser(userJson, id)
                 .map(data -> ResponseEntity.status(HttpStatus.CREATED).body(data))
                 .orElse(ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build());
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<?> patchUser(@PathVariable Long id){
-        return ResponseEntity.ok().build();
+    public ResponseEntity<?> updateUser(@PathVariable Long id, @RequestBody UserJson userJson){
+        return userFacade.patchUser(userJson, id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.status(HttpStatus.OK).build());
     }
 
     @DeleteMapping("/{id}")

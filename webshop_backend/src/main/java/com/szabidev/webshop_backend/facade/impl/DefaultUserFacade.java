@@ -54,4 +54,10 @@ public class DefaultUserFacade implements UserFacade {
         UserModel userModel = userJsonConverter.convert(userJson);
         return userService.updateUser(userModel, id).map(userDataAssembler::toModel);
     }
+
+    @Override
+    public Optional<UserData> patchUser(UserJson userJson, Long id) {
+        UserModel userModel = userJsonConverter.convert(userJson);
+        return userService.patchUser(userModel, id).map(userDataAssembler::toModel);
+    }
 }
