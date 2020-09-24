@@ -20,4 +20,11 @@ public interface PasswordEncoder {
      * @return True, if the plain password matches the encoded one
      */
     boolean matches(String plainPass, String encPass);
+
+    /**
+     * Getting the encoder wrapped in this custom class
+     *
+     * @return {@link org.springframework.security.crypto.password.PasswordEncoder}
+     */
+    org.springframework.security.crypto.password.PasswordEncoder getEncoder();
 }

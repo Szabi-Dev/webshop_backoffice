@@ -44,7 +44,10 @@ public class DefaultUserService implements UserService {
 
     @Override
     public Optional<UserModel> createUser(UserModel userModel) {
-        return Optional.of(userRepository.save(userModel));
+         if (userRepository.findByEmail(userModel.getEmail()).isPresent()){
+            return Optional.empty();
+         }
+         return Optional.of(userRepository.save(userModel));
     }
 
     @Override

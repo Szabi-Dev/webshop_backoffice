@@ -24,4 +24,9 @@ public class DefaultPasswordEncoder implements PasswordEncoder {
     public boolean matches(String plainPass, String encPass) {
         return encoder.matches(plainPass, encPass);
     }
+
+    @Override
+    public org.springframework.security.crypto.password.PasswordEncoder getEncoder() {
+        return encoder;
+    }
 }
