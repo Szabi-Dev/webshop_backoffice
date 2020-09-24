@@ -3,6 +3,8 @@ package com.szabidev.webshop_backend.config;
 import com.szabidev.webshop_backend.service.PasswordEncoder;
 import com.szabidev.webshop_backend.service.impl.CustomUserDetailsService;
 import com.szabidev.webshop_backend.service.impl.JWTAuthenticationFilter;
+import com.szabidev.webshop_backend.service.impl.JWTAuthorizationFilter;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -23,9 +25,12 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable().authorizeRequests()
-                .anyRequest().permitAll()
+                .antMatchers(HttpMethod.POST, "/user/authenticate").permitAll()
+                .antMatchers(HttpMethod.POST, "/user").permitAll()
+                .anyRequest().authenticated()
                 .and()
                 .addFilter(new JWTAuthenticationFilter(authenticationManager()))
+                .addFilter(new JWTAuthorizationFilter(authenticationManager()))
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }
 
