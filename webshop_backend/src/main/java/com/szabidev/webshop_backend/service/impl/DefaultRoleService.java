@@ -1,12 +1,14 @@
 package com.szabidev.webshop_backend.service.impl;
 
 import com.szabidev.webshop_backend.dao.RoleRepository;
+import com.szabidev.webshop_backend.model.PrivilegeModel;
 import com.szabidev.webshop_backend.model.RoleModel;
 import com.szabidev.webshop_backend.service.RoleService;
 import com.szabidev.webshop_backend.service.populator.impl.RolePopulator;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -65,5 +67,12 @@ public class DefaultRoleService implements RoleService {
         RoleModel roleToBeUpdated = roleRepository.getOne(id);
         rolePopulator.populatePatch(roleToBeUpdated, roleModel);
         return createRole(roleToBeUpdated);
+    }
+
+    @Override
+    public List<PrivilegeModel> findAllPrivilegesForRole(Long id) {
+        Optional<RoleModel> roleModel = roleRepository.findById(id);
+        return roleModel.map(role -> new ArrayList<>(role.getPrivileges()))
+                .orElseGet(ArrayList::new);
     }
 }

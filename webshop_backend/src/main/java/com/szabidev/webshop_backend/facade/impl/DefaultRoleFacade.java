@@ -2,8 +2,10 @@ package com.szabidev.webshop_backend.facade.impl;
 
 import com.szabidev.webshop_backend.controller.dto.RoleJson;
 import com.szabidev.webshop_backend.facade.RoleFacade;
+import com.szabidev.webshop_backend.facade.assembler.PrivilegeDataAssembler;
 import com.szabidev.webshop_backend.facade.assembler.RoleDataAssembler;
 import com.szabidev.webshop_backend.facade.converter.RoleJsonConverter;
+import com.szabidev.webshop_backend.facade.dto.PrivilegeData;
 import com.szabidev.webshop_backend.facade.dto.RoleData;
 import com.szabidev.webshop_backend.model.RoleModel;
 import com.szabidev.webshop_backend.service.RoleService;
@@ -21,6 +23,9 @@ public class DefaultRoleFacade implements RoleFacade {
 
     @Resource(name = "roleDataAssembler")
     private RoleDataAssembler roleDataAssembler;
+
+    @Resource(name = "privilegeDataAssembler")
+    private PrivilegeDataAssembler privilegeDataAssembler;
 
     @Resource(name = "roleJsonConverter")
     private RoleJsonConverter roleJsonConverter;
@@ -62,5 +67,10 @@ public class DefaultRoleFacade implements RoleFacade {
         RoleModel roleModel = roleJsonConverter.convert(roleJson);
         return roleService.patchRole(roleModel,id)
                 .map(roleDataAssembler::toModel);
+    }
+
+    @Override
+    public CollectionModel<PrivilegeData> fetchAllPrivileges(Long id) {
+        return privilegeDataAssembler.toCollectionModel(roleService.findAllPrivilegesForRole(id));
     }
 }

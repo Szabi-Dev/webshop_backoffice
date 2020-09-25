@@ -54,4 +54,9 @@ public class RoleController {
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.ok().build());
     }
+
+    @GetMapping("/{id}/privileges")
+    public ResponseEntity<?> findAllPrivilegesForRole(@PathVariable Long id){
+        return ResponseEntity.ok(roleFacade.fetchAllPrivileges(id));
+    }
 }

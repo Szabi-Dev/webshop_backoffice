@@ -1,5 +1,6 @@
 package com.szabidev.webshop_backend.service;
 
+import com.szabidev.webshop_backend.model.PrivilegeModel;
 import com.szabidev.webshop_backend.model.RoleModel;
 
 import java.util.List;
@@ -55,4 +56,12 @@ public interface RoleService {
      * @return {@link Optional<RoleModel>}
      */
     Optional<RoleModel> patchRole(RoleModel roleModel, Long id);
+
+    /**
+     * Find all privileges for user
+     *
+     * @param id - id
+     * @return {@link List<PrivilegeModel>}
+     */
+    List<PrivilegeModel> findAllPrivilegesForRole(Long id);
 }

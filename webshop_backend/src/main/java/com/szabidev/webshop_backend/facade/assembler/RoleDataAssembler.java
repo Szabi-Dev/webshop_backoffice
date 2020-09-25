@@ -18,12 +18,14 @@ public class RoleDataAssembler implements RepresentationModelAssembler<RoleModel
 
     private static final String ALL_ROLES_REL = "roles";
     private static final String CREATE_ROLE_REL = "create";
+    private static final String ALL_PRIVILEGES_REL = "privileges";
 
     @Override
     public RoleData toModel(RoleModel entity) {
         RoleData roleData = convert(entity);
         populateSelfLink(roleData);
         populateLinkToAll(roleData, ALL_ROLES_REL);
+        populateLinkToPrivileges(roleData, ALL_PRIVILEGES_REL);
         return roleData;
     }
 
@@ -49,5 +51,9 @@ public class RoleDataAssembler implements RepresentationModelAssembler<RoleModel
 
     private void populateLinkToAll(RoleData roleData, String rel){
         roleData.add(linkTo(methodOn(RoleController.class).fetchAllRoles()).withRel(rel));
+    }
+
+    private void populateLinkToPrivileges(RoleData roleData, String rel){
+        roleData.add(linkTo(methodOn(RoleController.class).findAllPrivilegesForRole(roleData.getId())).withRel(rel));
     }
 }

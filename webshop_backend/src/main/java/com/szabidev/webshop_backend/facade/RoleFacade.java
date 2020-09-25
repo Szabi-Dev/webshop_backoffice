@@ -1,9 +1,12 @@
 package com.szabidev.webshop_backend.facade;
 
 import com.szabidev.webshop_backend.controller.dto.RoleJson;
+import com.szabidev.webshop_backend.facade.dto.PrivilegeData;
 import com.szabidev.webshop_backend.facade.dto.RoleData;
+import com.szabidev.webshop_backend.model.PrivilegeModel;
 import org.springframework.hateoas.CollectionModel;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -55,4 +58,11 @@ public interface RoleFacade {
      * @return {@link Optional<RoleData>}
      */
     Optional<RoleData> patchRole(RoleJson roleJson, Long id);
+
+    /**
+     * Fetch all the priviliges associated with a role
+     * @param id - role id
+     * @return {@link List<PrivilegeModel>}
+     */
+    CollectionModel<PrivilegeData> fetchAllPrivileges(Long id);
 }
