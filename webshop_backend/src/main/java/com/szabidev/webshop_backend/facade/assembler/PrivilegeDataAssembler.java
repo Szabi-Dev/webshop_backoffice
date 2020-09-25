@@ -1,9 +1,7 @@
 package com.szabidev.webshop_backend.facade.assembler;
 
 import com.szabidev.webshop_backend.controller.PrivilegeController;
-import com.szabidev.webshop_backend.controller.UserController;
 import com.szabidev.webshop_backend.facade.dto.PrivilegeData;
-import com.szabidev.webshop_backend.facade.dto.UserData;
 import com.szabidev.webshop_backend.model.PrivilegeModel;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.server.RepresentationModelAssembler;
