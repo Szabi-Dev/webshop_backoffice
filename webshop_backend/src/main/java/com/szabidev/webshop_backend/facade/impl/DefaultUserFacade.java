@@ -2,8 +2,10 @@ package com.szabidev.webshop_backend.facade.impl;
 
 import com.szabidev.webshop_backend.controller.dto.UserJson;
 import com.szabidev.webshop_backend.facade.UserFacade;
+import com.szabidev.webshop_backend.facade.assembler.RoleDataAssembler;
 import com.szabidev.webshop_backend.facade.assembler.UserDataAssembler;
 import com.szabidev.webshop_backend.facade.converter.UserJsonConverter;
+import com.szabidev.webshop_backend.facade.dto.RoleData;
 import com.szabidev.webshop_backend.facade.dto.UserData;
 import com.szabidev.webshop_backend.model.UserModel;
 import com.szabidev.webshop_backend.service.UserService;
@@ -24,6 +26,9 @@ public class DefaultUserFacade implements UserFacade {
 
     @Resource(name = "userDataAssembler")
     private UserDataAssembler userDataAssembler;
+
+    @Resource(name = "roleDataAssembler")
+    private RoleDataAssembler roleDataAssembler;
 
     @Resource(name = "userJsonConverter")
     private UserJsonConverter userJsonConverter;
@@ -59,5 +64,10 @@ public class DefaultUserFacade implements UserFacade {
     public Optional<UserData> patchUser(UserJson userJson, Long id) {
         UserModel userModel = userJsonConverter.convert(userJson);
         return userService.patchUser(userModel, id).map(userDataAssembler::toModel);
+    }
+
+    @Override
+    public CollectionModel<RoleData> fetchAllRolesForUser(Long id) {
+        return roleDataAssembler.toCollectionModel(userService.findAllRolesForUser(id));
     }
 }

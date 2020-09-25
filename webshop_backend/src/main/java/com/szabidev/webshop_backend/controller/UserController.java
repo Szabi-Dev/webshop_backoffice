@@ -55,4 +55,9 @@ public class UserController {
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.ok().build());
     }
+
+    @GetMapping("/{id}/roles")
+    public ResponseEntity<?> getAllRolesForUser(@PathVariable Long id){
+        return ResponseEntity.ok(userFacade.fetchAllRolesForUser(id));
+    }
 }

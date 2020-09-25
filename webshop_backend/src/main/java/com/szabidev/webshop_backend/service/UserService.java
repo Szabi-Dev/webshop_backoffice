@@ -1,5 +1,6 @@
 package com.szabidev.webshop_backend.service;
 
+import com.szabidev.webshop_backend.model.RoleModel;
 import com.szabidev.webshop_backend.model.UserModel;
 
 import java.util.List;
@@ -56,5 +57,14 @@ public interface UserService {
      * @return {@link Optional<UserModel>}
      */
     Optional<UserModel> patchUser(UserModel userModel, Long id);
+
+    /**
+     *
+     * Find all roles for a specific user
+     *
+     * @param id - id
+     * @return {@link List<RoleModel>}
+     */
+    List<RoleModel> findAllRolesForUser(Long id);
 
 }

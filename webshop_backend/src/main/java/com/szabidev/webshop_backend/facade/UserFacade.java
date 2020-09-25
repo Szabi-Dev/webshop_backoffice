@@ -1,6 +1,7 @@
 package com.szabidev.webshop_backend.facade;
 
 import com.szabidev.webshop_backend.controller.dto.UserJson;
+import com.szabidev.webshop_backend.facade.dto.RoleData;
 import com.szabidev.webshop_backend.facade.dto.UserData;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.stereotype.Component;
@@ -58,5 +59,13 @@ public interface UserFacade {
      * @return {@link Optional<UserData>}
      */
     Optional<UserData> patchUser(UserJson userJson, Long id);
+
+    /**
+     * Fetch all roles for user
+     *
+     * @param id - id
+     * @return {@link CollectionModel<RoleData>}
+     */
+    CollectionModel<RoleData> fetchAllRolesForUser(Long id);
 
 }
