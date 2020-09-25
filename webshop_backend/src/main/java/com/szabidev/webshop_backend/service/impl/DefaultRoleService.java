@@ -54,7 +54,7 @@ public class DefaultRoleService implements RoleService {
         }
         RoleModel roleToBeUpdated = roleRepository.getOne(id);
         rolePopulator.populatePut(roleToBeUpdated, roleModel);
-        return Optional.of(roleRepository.save(roleToBeUpdated));
+        return createRole(roleToBeUpdated);
     }
 
     @Override
@@ -64,6 +64,6 @@ public class DefaultRoleService implements RoleService {
         }
         RoleModel roleToBeUpdated = roleRepository.getOne(id);
         rolePopulator.populatePatch(roleToBeUpdated, roleModel);
-        return Optional.of(roleRepository.save(roleToBeUpdated));
+        return createRole(roleToBeUpdated);
     }
 }
