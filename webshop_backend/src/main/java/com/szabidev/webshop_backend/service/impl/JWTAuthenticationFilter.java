@@ -27,6 +27,9 @@ import java.util.Date;
 @Service("jwtAuthenticationFilter")
 public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
+    @Value("${spring.security.jwt.secret}")
+    private String SECRET;
+
     @Override
     public Authentication attemptAuthentication(HttpServletRequest req, HttpServletResponse res) throws AuthenticationException {
         try {
@@ -43,7 +46,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         String token = JWT.create()
                 .withSubject(((User) auth.getPrincipal()).getUsername())
                 .withExpiresAt(new Date(System.currentTimeMillis() + SecurityConstants.EXPIRATION_TIME))
-                .sign(Algorithm.HMAC512(SecurityConstants.SECRET.getBytes()));
+                .sign(Algorithm.HMAC512(SECRET.getBytes()));
 
         String body = ((User) auth.getPrincipal()).getUsername() + " " + token;
 

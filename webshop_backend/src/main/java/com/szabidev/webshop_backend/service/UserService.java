@@ -2,7 +2,9 @@ package com.szabidev.webshop_backend.service;
 
 import com.szabidev.webshop_backend.model.RoleModel;
 import com.szabidev.webshop_backend.model.UserModel;
+import org.springframework.security.core.GrantedAuthority;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -66,5 +68,13 @@ public interface UserService {
      * @return {@link List<RoleModel>}
      */
     List<RoleModel> findAllRolesForUser(Long id);
+
+    /**
+     * Fetch granted authorities for a user
+     *
+     * @param email - username
+     * @return {@link Collection<? extends GrantedAuthority>}
+     */
+    Collection<? extends GrantedAuthority> fetchAuthoritiesForUser(String email);
 
 }

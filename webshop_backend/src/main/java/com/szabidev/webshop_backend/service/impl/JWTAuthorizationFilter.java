@@ -3,10 +3,9 @@ package com.szabidev.webshop_backend.service.impl;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.szabidev.webshop_backend.config.SecurityConstants;
-import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.stereotype.Service;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -22,6 +21,10 @@ import static com.szabidev.webshop_backend.config.SecurityConstants.TOKEN_PREFIX
 
 @Service("jwtAuthorizationFilter")
 public class JWTAuthorizationFilter extends OncePerRequestFilter {
+
+    @Value("${spring.security.jwt.secret}")
+    private String SECRET;
+
 
     @Override
     protected void doFilterInternal(HttpServletRequest req, HttpServletResponse res, FilterChain chain) throws IOException, ServletException {
@@ -43,7 +46,7 @@ public class JWTAuthorizationFilter extends OncePerRequestFilter {
             return null;
         }
         String token = tokenHeader.replace(TOKEN_PREFIX, "");
-        String user = JWT.require(Algorithm.HMAC512(SecurityConstants.SECRET.getBytes()))
+        String user = JWT.require(Algorithm.HMAC512(SECRET.getBytes()))
                 .build()
                 .verify(token)
                 .getSubject();
