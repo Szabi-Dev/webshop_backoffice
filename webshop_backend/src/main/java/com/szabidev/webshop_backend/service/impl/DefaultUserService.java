@@ -12,6 +12,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import javax.transaction.Transactional;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -87,6 +88,7 @@ public class DefaultUserService implements UserService {
     }
 
     @Override
+    @Transactional
     public Collection<? extends GrantedAuthority> fetchAuthoritiesForUser(String email) {
         Optional<UserModel> userModel = userRepository.findByEmail(email);
         List<GrantedAuthority> authorities = new ArrayList<>();

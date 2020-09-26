@@ -5,6 +5,7 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.szabidev.webshop_backend.config.SecurityConstants;
 import com.szabidev.webshop_backend.controller.dto.UserJson;
+import com.szabidev.webshop_backend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -30,12 +31,14 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     @Value("${spring.security.jwt.secret}")
     private String SECRET;
 
+    @Resource(name = "userService")
+    private UserService userService;
+
     @Override
     public Authentication attemptAuthentication(HttpServletRequest req, HttpServletResponse res) throws AuthenticationException {
         try {
             UserJson creds = new ObjectMapper().readValue(req.getInputStream(), UserJson.class);
-            //TODO: use authorities instead of empty list
-            return getAuthenticationManager().authenticate(new UsernamePasswordAuthenticationToken(creds.getEmail(), creds.getPassword(), new ArrayList<>()));
+            return getAuthenticationManager().authenticate(new UsernamePasswordAuthenticationToken(creds.getEmail(), creds.getPassword(), userService.fetchAuthoritiesForUser(creds.getEmail())));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
