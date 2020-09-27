@@ -20,12 +20,18 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-hateoas'
+    implementation 'junit:junit:4.12'
     compile "org.springframework.boot:spring-boot-starter-security"
     compile "com.auth0:java-jwt:3.4.0"
+
     runtimeOnly 'mysql:mysql-connector-java'
-    testImplementation('org.springframework.boot:spring-boot-starter-test') {
-        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
-    }
+
+    testImplementation('org.junit.jupiter:junit-jupiter-api:5.2.0')
+    testCompile('org.junit.jupiter:junit-jupiter-params:5.2.0')
+    testRuntime('org.junit.jupiter:junit-jupiter-engine:5.2.0')
+    testCompile "org.mockito:mockito-core:2.+"
+    testCompile('org.mockito:mockito-junit-jupiter:2.18.3')
+    testCompile('org.springframework.boot:spring-boot-starter-test')
 }
 
 test {
