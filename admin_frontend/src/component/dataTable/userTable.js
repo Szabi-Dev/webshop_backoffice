@@ -22,9 +22,9 @@ const columns = [
     { id: 9, lastName: 'Roxie', firstName: 'Harvey', age: 65 },
   ];
 
+  const filterBy= ["lastName", "firstName", "id", "age"]
 
 export default function UserTable(){
-    const [input, setInput] = React.useState("");
     const [rowList, setRowList] = React.useState([]);
     const [rowListDefault, setRowListDefault] = React.useState([]);
 
@@ -32,15 +32,9 @@ export default function UserTable(){
         setRowList(rows)
         setRowListDefault(rows)
     }
-    
-    const updateInput = async (e) => {
-        const value = e.target.value
-        
-        const filtered = rowListDefault.filter (row => {
-            return row.lastName.includes(value)
-        })
-        setInput(value)
-        setRowList(filtered)
+
+    const setFilteredRows = (filteredList) => {
+        setRowList(filteredList)
     }
 
 
@@ -49,7 +43,7 @@ export default function UserTable(){
     return (
         <div>
             <h1> User</h1>
-            <input type="text" value={input} onChange={updateInput} placeholder="Search" />
+            <SearchBar defaultRowList={rowListDefault} getFilteredRows = {setFilteredRows} filterBy={filterBy}/>
             <BasicTable columns={columns} rows={rowList}/> 
         </div>
     );
