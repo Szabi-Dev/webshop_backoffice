@@ -1,7 +1,5 @@
 import React from 'react';
-import BasicTable from './table'
-
-import SearchBar from './searchBar' 
+import TableView from './common/tableView'
 
 const columns = [
     { field: 'id', headerName: 'ID' },
@@ -25,27 +23,9 @@ const columns = [
   const filterBy= ["lastName", "firstName", "id", "age"]
 
 export default function UserTable(){
-    const [rowList, setRowList] = React.useState([]);
-    const [rowListDefault, setRowListDefault] = React.useState([]);
-
-    const fetchData = async () => {
-        setRowList(rows)
-        setRowListDefault(rows)
-    }
-
-    const setFilteredRows = (filteredList) => {
-        setRowList(filteredList)
-    }
-
-
-    React.useEffect ( () => {fetchData()},[]);
 
     return (
-        <div>
-            <h1> User</h1>
-            <SearchBar defaultRowList={rowListDefault} getFilteredRows = {setFilteredRows} filterBy={filterBy}/>
-            <BasicTable columns={columns} rows={rowList}/> 
-        </div>
+        <TableView data={rows} columns={columns} filterBy={filterBy} title="User" />
     );
 }
 

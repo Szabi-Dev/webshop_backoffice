@@ -6,6 +6,10 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import TableMenu from './tableMenu'
+import { Divider } from '@material-ui/core';
+
+
 
 
 export default function BasicTable(props) {
@@ -19,10 +23,12 @@ export default function BasicTable(props) {
         <TableBody>
           {props.rows.map((row) => (
             <TableRow key={row[props.columns[0].field]}>
-                {props.columns.map( (column) => ( <TableCell align="center">{row[column.field]}</TableCell>  ) )}
+                {props.columns.map( (column) => ( 
+                  <TableCell align="center">{row[column.field]}</TableCell>
+                  ) )}
+                  <TableMenu/>
             </TableRow>
           ))}
-          
         </TableBody>
       </Table>
     </TableContainer>

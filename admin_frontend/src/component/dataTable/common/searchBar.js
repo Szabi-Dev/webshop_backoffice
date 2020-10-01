@@ -1,5 +1,7 @@
 import React from 'react';
 
+import Input from '@material-ui/core/Input';
+
 export default function SearchBar (props) {
     const [input, setInput] = React.useState("")
 
@@ -28,6 +30,6 @@ export default function SearchBar (props) {
     }
     
     return (
-      <input type = "text" value={input} onChange={updateInput} placeholder={"Search"} />
+      <Input type = "text" value={input} onChange={updateInput} placeholder={"Search"} />
     );
   }
