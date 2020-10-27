@@ -14,6 +14,12 @@ const useStyles = makeStyles({
     }
   });
 
+const menu = [
+    {id : "user", displayName : "User", link: "/user"},
+    {id : "privileges", displayName : "Privileges", link: "/privileges"},
+]
+
+
 function PermanentDrawerLeft(props) {
     const classes = useStyles();
     
@@ -24,9 +30,9 @@ function PermanentDrawerLeft(props) {
     return (
       <Drawer className={classes.drawer} variant="permanent" anchor="left" >
         <List>
-          {props.menu.map((menu) => (
-            <ListItem button key={menu.displayName} onClick={() => navigate(menu)} >
-              <ListItemText primary={menu.displayName} />
+          {menu.map((menuItem) => (
+            <ListItem button key={menuItem.displayName} onClick={() => navigate(menuItem)} >
+              <ListItemText primary={menuItem.displayName} />
             </ListItem>
           ))}
         </List>
