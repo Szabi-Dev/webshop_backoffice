@@ -29,7 +29,6 @@ export default function TableMenu(props){
         <Menu id="simple-menu" anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleClose} >
             {tableMenuItems.map( (item) => (
                 <MenuItem onClick={handleClose}>{item.name}</MenuItem>
-                <SimpleModal buttonText="Add new" title="Add new"/>
             ))}
         </Menu>
         </div>

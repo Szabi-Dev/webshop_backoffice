@@ -8,7 +8,15 @@ import SimpleModal from './simpleModal';
 export default function TableView(props){
     const [rowList, setRowList] = React.useState([]);
     const [rowListDefault, setRowListDefault] = React.useState([]);
+    const [isOpen, setIsOpen] = React.useState(false);
     
+    const openModal = () => {
+        setIsOpen(true)
+    }
+
+    const closeModal = () => {
+        setIsOpen(false)
+    }
 
     const fetchData = async () => {
         setRowList(props.data)
@@ -25,7 +33,8 @@ export default function TableView(props){
         <div>
             <h1> {props.title}</h1>
             <SearchBar defaultRowList={rowListDefault} getFilteredRows={setFilteredRows} filterBy={props.filterBy}/>
-            <SimpleModal buttonText="Add new" title="Add new"/>
+            <button onClick={openModal}> Add new</button>
+            <SimpleModal show={isOpen} handleModalClose={closeModal} title="Add new"/>
             <BasicTable columns={props.columns} rows={rowList}/>
         </div>
     );
