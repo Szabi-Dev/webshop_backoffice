@@ -8,11 +8,9 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import { withRouter } from 'react-router-dom';
 
-export const drawerWidth = 240
-
 const useStyles = makeStyles({
     drawer: {
-      width: drawerWidth
+      width: "190px"
     }
   });
 
@@ -24,7 +22,6 @@ function PermanentDrawerLeft(props) {
     }
 
     return (
-   
       <Drawer className={classes.drawer} variant="permanent" anchor="left" >
         <List>
           {props.menu.map((menu) => (
