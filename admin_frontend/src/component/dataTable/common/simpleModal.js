@@ -19,11 +19,10 @@ export default function SimpleModal(props){
 
     return (
         <div>
-           
             <Modal open={props.show} onClose={props.handleModalClose} aria-labelledby="simple-modal-title" aria-describedby="simple-modal-description" >
             <div className={classes.paper}>
             <h2 id="simple-modal-title"> {props.title} </h2>
-                
+                {props.body}   
             </div>
             </Modal>
         </div>

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import BasicTable from './table'
 
 import SearchBar from './searchBar' 
-import SimpleModal from './simpleModal';
+import AddModal from '../modal/addModal';
 
 
 export default function TableView(props){
@@ -34,7 +34,7 @@ export default function TableView(props){
             <h1> {props.title}</h1>
             <SearchBar defaultRowList={rowListDefault} getFilteredRows={setFilteredRows} filterBy={props.filterBy}/>
             <button onClick={openModal}> Add new</button>
-            <SimpleModal show={isOpen} handleModalClose={closeModal} title="Add new"/>
+            <AddModal show={isOpen} handleModalClose={closeModal} />
             <BasicTable columns={props.columns} rows={rowList}/>
         </div>
     );
