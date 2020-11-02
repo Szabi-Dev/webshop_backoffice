@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import BasicTable from './table'
 
 import SearchBar from './searchBar' 
@@ -34,7 +34,7 @@ export default function TableView(props){
             <h1> {props.title}</h1>
             <SearchBar defaultRowList={defaultRowList} getFilteredRows={setFilteredRows} filterBy={props.filterBy}/>
             <button onClick={openModal}> Add new</button>
-            <AddModal show={isOpen} handleModalClose={closeModal} />
+            <AddModal show={isOpen} tabs={props.addModalTabs} handleModalClose={closeModal} />
             <BasicTable columns={props.columns} rows={rowList}/>
         </div>
     );

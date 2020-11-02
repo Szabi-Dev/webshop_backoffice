@@ -29,7 +29,7 @@ export default function TableMenu(props){
 
     const handleMenuItemClick = (item) => {
         setAnchorEl(null);
-        if (item.field == "edit"){
+        if (item.field === "edit"){
             setIsOpen(true);
         }
     };

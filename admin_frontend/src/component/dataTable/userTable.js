@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import {UserService} from '../../services/userService';
 import TableView from './common/tableView'
+import Input from '@material-ui/core/Input';
 
 const columns = [
     { field: 'id', headerName: 'ID' },
@@ -11,6 +12,12 @@ const columns = [
   
 
   const filterBy= ["lastName", "firstName", "id", "age"]
+
+
+  const addModaltabs = [
+    {id: 'tab1', displayName: "Tab 1", index: 0, content:  <Input type="text" placeholder="tab1"/>}
+]
+
 
 export default function UserTable(){
     const [rows, setRows] = useState([])
@@ -26,7 +33,7 @@ export default function UserTable(){
     }, [])
 
     return (
-        <TableView data={rows} columns={columns} filterBy={filterBy} title="User" />
+        <TableView data={rows} columns={columns} addModalTabs={addModaltabs} filterBy={filterBy} title="User" />
     );
 }
 

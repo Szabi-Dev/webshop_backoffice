@@ -23,6 +23,8 @@ export default function SimpleModal(props){
             <div className={classes.paper}>
             <h2 id="simple-modal-title"> {props.title} </h2>
                 {props.body}   
+
+                {props.footer}
             </div>
             </Modal>
         </div>
