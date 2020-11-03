@@ -66,7 +66,7 @@ export default function UserPage(props){
         <SearchBar defaultRowList={defaultRowList} getFilteredRows={setFilteredRows} filterBy={filterBy}/>
         <Button variant="contained" onClick={openModal}> Add</Button>  
         <AddModal show={isOpen} tabs={addModaltabs} actionLink={addLink} payLoad={newUser} handleModalClose={closeModal}/>
-        <BasicTable columns={columns} rows={rowList}/>
+        <BasicTable columns={columns} rows={rowList} handleResponse={fetchData}/>
      </div> 
     );
 }

@@ -1,9 +1,9 @@
 import React from 'react';
 import IconButton from '@material-ui/core/IconButton';
 import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import EditModal from '../modal/editModal';
+import DeleteMenuItem from './deleteMenuItem';
 
 const tableMenuItems = [
     {field: "edit", name : "Edit"},
@@ -27,22 +27,13 @@ export default function TableMenu(props){
         setAnchorEl(null);
     }
 
-    const handleMenuItemClick = (item) => {
-        setAnchorEl(null);
-        if (item.field === "edit"){
-            setIsOpen(true);
-        }
-    };
-
     return (
         <div>
         <IconButton aria-label="more" aria-haspopup="true" onClick={handleClick} >
             <MoreVertIcon />
         </IconButton>
         <Menu id="simple-menu" anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleClose} >
-            {tableMenuItems.map( (item) => (
-                <MenuItem onClick={()=> handleMenuItemClick(item)}>{item.name}</MenuItem>
-            ))}
+            <DeleteMenuItem actionLink={props.deleteLink} handleClose={handleClose} actionLink={props.selfLink} handleResponse={props.handleResponse}/>
         </Menu>
         <EditModal show={isOpen} handleModalClose={closeModal} />
         </div>

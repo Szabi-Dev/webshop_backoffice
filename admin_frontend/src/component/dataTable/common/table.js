@@ -25,7 +25,7 @@ export default function BasicTable(props) {
                 {props.columns.map( (column) => ( 
                   <TableCell align="center">{row[column.field]}</TableCell>
                   ) )}
-                  <TableMenu/>
+                  <TableMenu selfLink={row["_links"]["self"]} handleResponse={props.handleResponse}/>
             </TableRow>
           ))}
         </TableBody>
