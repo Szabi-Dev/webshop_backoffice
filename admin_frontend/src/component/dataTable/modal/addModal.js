@@ -2,7 +2,7 @@ import React from 'react';
 import SimpleModal from '../common/simpleModal';
 import TabComponent from '../common/tabComponent';
 import Button from '@material-ui/core/Button';
-
+import RestButton from '../common/restButton'
 
 export default function AddModal(props){
 
@@ -12,10 +12,9 @@ export default function AddModal(props){
 
     const footer =(
         <div>
-            <Button variant="contained">Add</Button> 
+            <RestButton name="Add" actionLink={props.actionLink} action="POST" payLoad={props.payLoad} />
             <Button variant="contained" onClick={props.handleModalClose}>Cancel</Button>
         </div>
-      
     )
 
     return (

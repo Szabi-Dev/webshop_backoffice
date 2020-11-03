@@ -1,5 +1,3 @@
-import {BACKEND_BASE_URI} from './constants'
-
 
 export const RestCaller = () => {
 
@@ -16,17 +14,18 @@ export const RestCaller = () => {
         referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
     }
 
-    const getRequest = async (apiString) =>{
-        defaultOptions.method = 'GET'
-        return defaultFetch(apiString, defaultOptions)
-        
+    const makeRequest = async (actionLink, action='GET', payload='') => {
+        defaultOptions.method = action
+        if (action != 'GET'){
+            defaultOptions.body = JSON.stringify(payload)
+        }
+        return defaultFetch(actionLink, defaultOptions)
     }
 
-
-    const defaultFetch = async (apiString, options) => {
+    const defaultFetch = async (actionLink, options) => {
         let response;
         try {
-            response = await fetch(BACKEND_BASE_URI + apiString, options);
+            response = await fetch(actionLink, options);
         } catch(ex) {
             console.log(ex)
             return 
@@ -40,6 +39,6 @@ export const RestCaller = () => {
     }
 
     return {
-        getRequest
+        makeRequest
     }
 }

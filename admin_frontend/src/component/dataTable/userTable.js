@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import {UserService} from '../../services/userService';
+import {RestCaller} from '../../services/util/restCaller';
+import {USER_URI} from '../../services/util/constants'
 import TableView from './common/tableView'
-import Input from '@material-ui/core/Input';
+import {UserAddGeneralTab} from './form/userAddForm'
 
 const columns = [
     { field: 'id', headerName: 'ID' },
@@ -11,29 +12,31 @@ const columns = [
   ];
   
 
-  const filterBy= ["lastName", "firstName", "id", "age"]
+const filterBy= ["lastName", "firstName", "id", "age"]
 
-
-  const addModaltabs = [
-    {id: 'tab1', displayName: "Tab 1", index: 0, content:  <Input type="text" placeholder="tab1"/>}
-]
 
 
 export default function UserTable(){
-    const [rows, setRows] = useState([])
+    const [userData, setUserData] = useState({})
+    const newUser = {}
 
-    const userService = UserService(); 
+    const restCaller = RestCaller(); 
+
+    const addModaltabs = [
+      {id: 'general', displayName: "General", index: 0, content:  <UserAddGeneralTab /> }
+    ]
+
 
     useEffect (() => {
       async function fetchData() {
         // You can await here
-        await userService.fetchUsers().then(setRows);
+        await restCaller.makeRequest(USER_URI).then(setUserData);
       }
       fetchData()
     }, [])
 
     return (
-        <TableView data={rows} columns={columns} addModalTabs={addModaltabs} filterBy={filterBy} title="User" />
+        <TableView data={userData} columns={columns} addModalTabs={addModaltabs} filterBy={filterBy} title="User" />
     );
 }
 
