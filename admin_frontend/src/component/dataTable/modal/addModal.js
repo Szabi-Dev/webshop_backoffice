@@ -12,7 +12,7 @@ export default function AddModal(props){
 
     const footer =(
         <div>
-            <RestButton name="Add" actionLink={props.actionLink} action="POST" payLoad={props.payLoad} />
+            <RestButton name="Add" actionLink={props.actionLink} action="POST" payLoad={props.payLoad} handleResponse={props.handleModalClose} />
             <Button variant="contained" onClick={props.handleModalClose}>Cancel</Button>
         </div>
     )

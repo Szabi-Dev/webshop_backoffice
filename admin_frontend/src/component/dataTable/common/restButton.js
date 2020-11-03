@@ -6,7 +6,7 @@ export default function RestButton(props){
 
     const handleOnClick = () => {
         RestCaller().makeRequest(props.actionLink['href'], props.action, props.payLoad)
-            .then(data => console.log(data))
+            .then(props.handleResponse)
     }
 
 
