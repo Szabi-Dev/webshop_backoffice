@@ -41,25 +41,24 @@ export default function UserPage(props){
 
     const closeModal = () => {
         setIsOpen(false)
+        fetchData()
     }
 
     const setFilteredRows = (filteredList) => {
         setRowList(filteredList)
     }
-
-    useEffect (() => {
-      async function fetchData() {
+    
+    async function fetchData() {
         // You can await here
         await RestCaller().makeRequest(USER_URI).then((data) =>{
-            console.log(data)
             let dataList = data['_embedded']['userDataList']
             setDefaultRowList(dataList)
             setRowList(dataList)
             setAddLink(data["_links"]["create"])
         });
       }
-      fetchData()
-    }, [])
+
+    useEffect (() => { fetchData() }, [])
 
     return (
     <div>
