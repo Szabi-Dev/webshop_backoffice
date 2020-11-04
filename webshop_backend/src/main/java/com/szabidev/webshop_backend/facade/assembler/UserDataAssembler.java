@@ -19,12 +19,14 @@ public class UserDataAssembler implements RepresentationModelAssembler<UserModel
 
     private static final String ALL_USERS_REL = "users";
     private static final String CREATE_USER_REL = "create";
+    private static final String ALL_ROLES_REL = "roles";
 
     @Override
     public UserData toModel(UserModel entity) {
         UserData userData = convert(entity);
         populateSelfLink(userData);
         populateLinkToAll(userData, ALL_USERS_REL);
+        populateRolesLink(userData, ALL_ROLES_REL);
         return userData;
     }
 
@@ -52,5 +54,9 @@ public class UserDataAssembler implements RepresentationModelAssembler<UserModel
 
     private void populateLinkToAll(UserData userData, String rel){
         userData.add(linkTo(methodOn(UserController.class).fetchAllUsers()).withRel(rel));
+    }
+
+    private void populateRolesLink(UserData userData, String rel){
+        userData.add(linkTo(methodOn(UserController.class).getAllRolesForUser(userData.getId())).withRel(rel));
     }
 }

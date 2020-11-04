@@ -1,6 +1,7 @@
 package com.szabidev.webshop_backend.model;
 
 import javax.persistence.*;
+import java.util.Collection;
 
 @Entity
 @Table(name = "USER_MODEL")
@@ -17,11 +18,20 @@ public class UserModel {
     @Column(name= "last_name")
     private String lastName;
 
-    @Column(name = "email")
+    @Column(name = "email", unique = true)
     private String email;
 
     @Column(name = "password")
     private String password;
+
+    @Column(name = "enabled", columnDefinition = "boolean default true")
+    private boolean enabled;
+
+    @ManyToMany
+    @JoinTable(name = "user_roles",
+            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
+    private Collection<RoleModel> roles;
 
     public UserModel(){}
 
@@ -63,5 +73,21 @@ public class UserModel {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    public Collection<RoleModel> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Collection<RoleModel> roles) {
+        this.roles = roles;
     }
 }

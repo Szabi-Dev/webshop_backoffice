@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 /**
  * Implementation of {@link com.szabidev.webshop_backend.service.populator.Populator} for {@link com.szabidev.webshop_backend.model.UserModel}
  */
-@Component
+@Component("userPopulator")
 public class UserPopulator implements Populator<UserModel, UserModel> {
 
     @Override

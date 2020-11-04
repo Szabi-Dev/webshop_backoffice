@@ -2,6 +2,7 @@ package com.szabidev.webshop_backend.controller;
 
 import com.szabidev.webshop_backend.controller.dto.UserJson;
 import com.szabidev.webshop_backend.facade.UserFacade;
+import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -51,6 +52,25 @@ public class UserController {
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteUserById(@PathVariable Long id) {
         return userFacade.deleteUserById(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.ok().build());
+    }
+
+    @GetMapping("/{id}/role")
+    public ResponseEntity<?> getAllRolesForUser(@PathVariable Long id){
+        return ResponseEntity.ok(userFacade.fetchAllRolesForUser(id));
+    }
+
+    @PatchMapping("/{userid}/role/{roleid}")
+    public ResponseEntity<?> addRoleToUser(@PathVariable Long userid, @PathVariable Long roleid){
+        return userFacade.addRoleToUser(userid, roleid)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.ok().build());
+    }
+
+    @DeleteMapping("/{userid}/role/{roleid}")
+    public ResponseEntity<?> deleteRoleFromUser(@PathVariable Long userid, @PathVariable Long roleid){
+        return userFacade.removeRoleFromUser(userid, roleid)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.ok().build());
     }
