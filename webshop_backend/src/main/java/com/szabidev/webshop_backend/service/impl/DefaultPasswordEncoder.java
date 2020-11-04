@@ -17,6 +17,7 @@ public class DefaultPasswordEncoder implements PasswordEncoder {
 
     @Override
     public String encode(String pass) {
+        if (pass == null) return null;
         return encoder.encode(pass);
     }
 
