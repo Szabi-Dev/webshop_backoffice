@@ -52,9 +52,9 @@ public class DefaultPrivilegeService implements PrivilegeService {
         if (!privilegeRepository.existsById(id)){
             return createPrivilege(privilegeModel);
         }
-        PrivilegeModel privilegeToBeUpdated = privilegeRepository.getOne(id);
+        PrivilegeModel privilegeToBeUpdated = privilegeRepository.findById(id).get();
         privilegePopulator.populatePut(privilegeToBeUpdated, privilegeModel);
-        return createPrivilege(privilegeToBeUpdated);
+        return Optional.of(privilegeRepository.save(privilegeToBeUpdated));
     }
 
     @Override
@@ -62,8 +62,8 @@ public class DefaultPrivilegeService implements PrivilegeService {
         if (!privilegeRepository.existsById(id)){
             return createPrivilege(privilegeModel);
         }
-        PrivilegeModel privilegeToBeUpdated = privilegeRepository.getOne(id);
+        PrivilegeModel privilegeToBeUpdated = privilegeRepository.findById(id).get();
         privilegePopulator.populatePatch(privilegeToBeUpdated, privilegeModel);
-        return createPrivilege(privilegeToBeUpdated);
+        return Optional.of(privilegeRepository.save(privilegeToBeUpdated));
     }
 }

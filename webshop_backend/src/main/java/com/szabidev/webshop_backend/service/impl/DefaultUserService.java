@@ -66,7 +66,7 @@ public class DefaultUserService implements UserService {
         }
         UserModel userToBeUpdated = userRepository.getOne(id);
         userPopulator.populatePut(userToBeUpdated, userModel);
-        return createUser(userToBeUpdated);
+        return Optional.of(userRepository.save(userToBeUpdated));
 
     }
 
@@ -75,9 +75,9 @@ public class DefaultUserService implements UserService {
         if (!userRepository.existsById(id)) {
             return createUser(userModel);
         }
-        UserModel userToBeUpdated = userRepository.getOne(id);
+        UserModel userToBeUpdated = userRepository.findById(id).get();
         userPopulator.populatePatch(userToBeUpdated, userModel);
-        return createUser(userToBeUpdated);
+        return Optional.of(userRepository.save(userToBeUpdated));
     }
 
     @Override
