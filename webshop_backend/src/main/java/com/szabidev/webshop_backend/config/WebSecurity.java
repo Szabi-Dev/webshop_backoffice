@@ -4,6 +4,7 @@ import com.szabidev.webshop_backend.service.PasswordEncoder;
 import com.szabidev.webshop_backend.service.impl.CustomUserDetailsService;
 import com.szabidev.webshop_backend.service.impl.JWTAuthenticationFilter;
 import com.szabidev.webshop_backend.service.impl.JWTAuthorizationFilter;
+import com.szabidev.webshop_backend.service.impl.OauthSuccessHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -31,8 +32,13 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
     @Resource(name = "jwtAuthorizationFilter")
     private JWTAuthorizationFilter jwtAuthorizationFilter;
 
+    @Resource(name = "authSuccessHandler")
+    private OauthSuccessHandler authSuccessHandler;
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        http.cors().and().csrf().disable();
+        /*
         http.cors().and().csrf().disable().authorizeRequests()
                 .antMatchers(HttpMethod.POST, "/user/authenticate").permitAll()
                 .antMatchers(HttpMethod.POST, "/user").permitAll()
@@ -40,7 +46,12 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
                 .and()
                 .addFilter(jwtAuthenticationFilter)
                 .addFilterBefore(jwtAuthorizationFilter, BasicAuthenticationFilter.class)
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
+                .oau
+                .successHandler(authSuccessHandler);
+
+         */
     }
 
     @Override
