@@ -6,6 +6,8 @@ import SearchBar from '../dataTable/common/searchBar'
 import AddModal from '../dataTable/modal/addModal'
 import BasicTable from '../dataTable/common/table'
 import Button from '@material-ui/core/Button';
+import { UserEditGeneralTab } from '../dataTable/form/userEditForm';
+import EditModal from '../dataTable/modal/editModal';
 
 const columns = [
     { field: 'id', headerName: 'ID' },
@@ -25,6 +27,7 @@ export default function UserPage(props){
     const [isOpen, setIsOpen] = React.useState(false);
     const [addLink, setAddLink] = React.useState("")
     const [newUser, setNewUser] = React.useState({})
+    const [currentUser, setCurrentUser] = React.useState({})
     
     const handleAddChange = (event) =>{
         newUser[event.target.name] = event.target.value
@@ -34,6 +37,10 @@ export default function UserPage(props){
     const addModaltabs = [
       {id: 'general', displayName: "General", index: 0, content:  <UserAddGeneralTab handleAddChange={handleAddChange} /> }
     ]
+
+    const editModaltabs = [
+        {id: 'general', displayName: "General", index: 0, content:  <UserEditGeneralTab /> }
+      ]
 
     const openModal = () => {
         setIsOpen(true)
@@ -66,7 +73,7 @@ export default function UserPage(props){
         <SearchBar defaultRowList={defaultRowList} getFilteredRows={setFilteredRows} filterBy={filterBy}/>
         <Button variant="contained" onClick={openModal}> Add</Button>  
         <AddModal show={isOpen} tabs={addModaltabs} actionLink={addLink} payLoad={newUser} handleModalClose={closeModal}/>
-        <BasicTable columns={columns} rows={rowList} handleResponse={fetchData}/>
+        <BasicTable columns={columns} rows={rowList} handleResponse={fetchData} editTabs={editModaltabs} />
      </div> 
     );
 }

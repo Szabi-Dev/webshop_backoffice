@@ -4,6 +4,7 @@ import Menu from '@material-ui/core/Menu';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import EditModal from '../modal/editModal';
 import DeleteMenuItem from './deleteMenuItem';
+import EditMenuItem from './editMenuItem';
 
 const tableMenuItems = [
     {field: "edit", name : "Edit"},
@@ -13,11 +14,6 @@ const tableMenuItems = [
 
 export default function TableMenu(props){
     const [anchorEl, setAnchorEl] = React.useState(null);
-    const [isOpen, setIsOpen] = React.useState(false);
-
-    const closeModal = () => {
-        setIsOpen(false)
-    }
 
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
@@ -33,9 +29,9 @@ export default function TableMenu(props){
             <MoreVertIcon />
         </IconButton>
         <Menu id="simple-menu" anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleClose} >
-            <DeleteMenuItem actionLink={props.deleteLink} handleClose={handleClose} actionLink={props.selfLink} handleResponse={props.handleResponse}/>
+            <DeleteMenuItem handleClose={handleClose} actionLink={props.currentItem["_links"]["self"]} handleResponse={props.handleResponse}/>
+            <EditMenuItem currentItem={props.currentItem} actionLink={props.currentItem["_links"]["self"]} editTabs={props.editTabs}/>
         </Menu>
-        <EditModal show={isOpen} handleModalClose={closeModal} />
         </div>
         
     )

@@ -21,7 +21,7 @@ export default function DeleteMenuItem(props) {
     return (
         <div>
             <MenuItem onClick={openModal}> {tableMenuItem.name}</MenuItem>
-            <DeleteModal show={isOpen} handleModalClose={closeModal} actionLink={props.actionLink} handleModalClose={closeModal}/> 
+            <DeleteModal show={isOpen} handleModalClose={closeModal} actionLink={props.actionLink}/> 
         </div>
     )
 }
