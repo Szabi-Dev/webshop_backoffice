@@ -4,16 +4,12 @@ import com.szabidev.webshop_backend.service.PasswordEncoder;
 import com.szabidev.webshop_backend.service.impl.CustomUserDetailsService;
 import com.szabidev.webshop_backend.service.impl.JWTAuthenticationFilter;
 import com.szabidev.webshop_backend.service.impl.JWTAuthorizationFilter;
-import com.szabidev.webshop_backend.service.impl.OauthSuccessHandler;
 import org.springframework.context.annotation.Bean;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
 import javax.annotation.Resource;
 
@@ -31,9 +27,6 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 
     @Resource(name = "jwtAuthorizationFilter")
     private JWTAuthorizationFilter jwtAuthorizationFilter;
-
-    @Resource(name = "authSuccessHandler")
-    private OauthSuccessHandler authSuccessHandler;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {

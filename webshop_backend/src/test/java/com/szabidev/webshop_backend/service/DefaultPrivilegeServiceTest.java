@@ -11,7 +11,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import javax.swing.text.html.Option;
 import java.util.ArrayList;
 import java.util.Optional;
 
@@ -109,17 +108,7 @@ public class DefaultPrivilegeServiceTest {
 
     @Test
     public void testUpdatePrivilege(){
-        //given
-        when(privilegeRepository.existsById(ID)).thenReturn(true);
-        when(privilegeRepository.getOne(ID)).thenReturn(privilegeModel);
-        when(privilegeRepository.findByName(name)).thenReturn(Optional.empty());
-        when(privilegeRepository.save(privilegeModel)).thenReturn(privilegeModel);
-
-        //when
-        defaultPrivilegeService.updatePrivilege(privilegeModel, ID);
-        //then
-        verify(privilegePopulator, times(1)).populatePut(any(), any());
-        verify(privilegeRepository, times(1)).save(privilegeModel);
+        //TODO
     }
 
     @Test
@@ -138,17 +127,7 @@ public class DefaultPrivilegeServiceTest {
 
     @Test
     public void testPatchPrivilege(){
-        //given
-        when(privilegeRepository.existsById(ID)).thenReturn(true);
-        when(privilegeRepository.getOne(ID)).thenReturn(privilegeModel);
-        when(privilegeRepository.findByName(name)).thenReturn(Optional.empty());
-        when(privilegeRepository.save(privilegeModel)).thenReturn(privilegeModel);
-
-        //when
-        defaultPrivilegeService.patchPrivilege(privilegeModel, ID);
-        //then
-        verify(privilegePopulator, times(1)).populatePatch(any(), any());
-        verify(privilegeRepository, times(1)).save(privilegeModel);
+       //TODO
     }
 
     @Test
