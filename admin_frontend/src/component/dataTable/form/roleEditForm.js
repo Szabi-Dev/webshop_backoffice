@@ -6,7 +6,7 @@ const RoleEditGeneralTab = (props) =>{
 
     return (
     <form>
-       <TextField id="standard-basic" name="name" defaultValue={props.currentItem.name} label="Name" onChange={props.handleAddChange} />
+       <TextField id="standard-basic" name="name" defaultValue={props.currentItem.name} label="Name" onChange={props.handleEditChange} />
     </form>
     )
 }
