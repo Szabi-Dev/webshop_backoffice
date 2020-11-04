@@ -7,7 +7,9 @@ import com.szabidev.webshop_backend.facade.assembler.UserDataAssembler;
 import com.szabidev.webshop_backend.facade.converter.UserJsonConverter;
 import com.szabidev.webshop_backend.facade.dto.RoleData;
 import com.szabidev.webshop_backend.facade.dto.UserData;
+import com.szabidev.webshop_backend.model.RoleModel;
 import com.szabidev.webshop_backend.model.UserModel;
+import com.szabidev.webshop_backend.service.RoleService;
 import com.szabidev.webshop_backend.service.UserService;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.stereotype.Component;
@@ -24,6 +26,9 @@ public class DefaultUserFacade implements UserFacade {
     @Resource(name = "userService")
     private UserService userService;
 
+    @Resource(name = "roleService")
+    private RoleService roleService;
+
     @Resource(name = "userDataAssembler")
     private UserDataAssembler userDataAssembler;
 
@@ -39,7 +44,7 @@ public class DefaultUserFacade implements UserFacade {
     }
 
     @Override
-    public CollectionModel<UserData> fetchAllUsers(){
+    public CollectionModel<UserData> fetchAllUsers() {
         return userDataAssembler.toCollectionModel(userService.findAllUsers());
     }
 
@@ -70,4 +75,22 @@ public class DefaultUserFacade implements UserFacade {
     public CollectionModel<RoleData> fetchAllRolesForUser(Long id) {
         return roleDataAssembler.toCollectionModel(userService.findAllRolesForUser(id));
     }
+
+    @Override
+    public Optional<UserData> addRoleToUser(Long userid, Long roleid) {
+        Optional<UserModel> userModel = userService.getUserById(userid);
+        if (!userModel.isPresent()) {
+            return Optional.empty();
+        }
+
+        Optional<RoleModel> roleModel = roleService.getRoleById(roleid);
+        if (!roleModel.isPresent()) {
+            return Optional.empty();
+        }
+        userModel.get().getRoles().add(roleModel.get());
+
+        return userService.patchUser(userModel.get(), userid).map(userDataAssembler::toModel);
+    }
+
+
 }

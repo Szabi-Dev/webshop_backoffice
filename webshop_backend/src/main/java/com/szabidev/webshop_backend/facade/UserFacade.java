@@ -68,4 +68,13 @@ public interface UserFacade {
      */
     CollectionModel<RoleData> fetchAllRolesForUser(Long id);
 
+    /**
+     * Add role to a user
+     * 
+     * @param userid - id of a user
+     * @param roleid - id of a role
+     * @return {@link Optional<UserData>}
+     */
+    Optional<UserData> addRoleToUser(Long userid, Long roleid);
+
 }

@@ -56,8 +56,21 @@ public class UserController {
                 .orElse(ResponseEntity.ok().build());
     }
 
-    @GetMapping("/{id}/roles")
+    @GetMapping("/{id}/role")
     public ResponseEntity<?> getAllRolesForUser(@PathVariable Long id){
         return ResponseEntity.ok(userFacade.fetchAllRolesForUser(id));
+    }
+
+    @PatchMapping("/{userid}/role/{roleid}")
+    public ResponseEntity<?> addRoleToUser(@PathVariable Long userid, @PathVariable Long roleid){
+        return userFacade.addRoleToUser(userid, roleid)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.ok().build());
+    }
+
+    @DeleteMapping("/{userid}/role/{roleid}")
+    public ResponseEntity<?> deleteRoleFromUser(@PathVariable Long userid, @PathVariable Long roleid){
+        //TODO
+        return ResponseEntity.ok().build();
     }
 }
