@@ -65,4 +65,9 @@ public interface RoleFacade {
      * @return {@link List<PrivilegeModel>}
      */
     CollectionModel<PrivilegeData> fetchAllPrivileges(Long id);
+
+
+    Optional<RoleData> addPrivilegeToRole(Long roleId, Long privilegeId);
+
+    Optional<RoleData> removePrivilegeFromRole(Long roleId, Long privilegeId);
 }

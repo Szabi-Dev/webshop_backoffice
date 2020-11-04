@@ -75,4 +75,33 @@ public class DefaultRoleService implements RoleService {
         return roleModel.map(role -> new ArrayList<>(role.getPrivileges()))
                 .orElseGet(ArrayList::new);
     }
+
+    @Override
+    public Optional<RoleModel> addPrivilegeToRole(Long roleId, PrivilegeModel privilegeModel) {
+        Optional<RoleModel> roleModel = getRoleById(roleId);
+        if (!roleModel.isPresent()) {
+            return Optional.empty();
+        }
+        RoleModel role = roleModel.get();
+        if (role.getPrivileges().contains(privilegeModel)) {
+            return Optional.empty();
+        }
+
+        role.getPrivileges().add(privilegeModel);
+        return patchRole(role, roleId);
+    }
+
+    @Override
+    public Optional<RoleModel> removePrivilegeFromRole(Long roleId, PrivilegeModel privilegeModel) {
+        Optional<RoleModel> roleModel = getRoleById(roleId);
+        if (!roleModel.isPresent()) {
+            return Optional.empty();
+        }
+        RoleModel role = roleModel.get();
+        if (!role.getPrivileges().contains(privilegeModel)) {
+            return Optional.empty();
+        }
+        role.getPrivileges().remove(privilegeModel);
+        return patchRole(role, roleId);
+    }
 }

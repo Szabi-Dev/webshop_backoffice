@@ -64,4 +64,22 @@ public interface RoleService {
      * @return {@link List<PrivilegeModel>}
      */
     List<PrivilegeModel> findAllPrivilegesForRole(Long id);
+
+    /**
+     * Add privilege to role
+     *
+     * @param roleId - role id
+     * @param privilegeModel - {@link PrivilegeModel}
+     * @return {@link Optional<RoleModel>}
+     */
+    Optional<RoleModel> addPrivilegeToRole(Long roleId, PrivilegeModel privilegeModel);
+
+    /**
+     * Remove privilege from role
+     *
+     * @param roleId - role id
+     * @param privilegeModel - {@link PrivilegeModel}
+     * @return {@link Optional<RoleModel>}
+     */
+    Optional<RoleModel> removePrivilegeFromRole(Long roleId, PrivilegeModel privilegeModel);
 }

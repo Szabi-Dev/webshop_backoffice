@@ -7,7 +7,9 @@ import com.szabidev.webshop_backend.facade.assembler.RoleDataAssembler;
 import com.szabidev.webshop_backend.facade.converter.RoleJsonConverter;
 import com.szabidev.webshop_backend.facade.dto.PrivilegeData;
 import com.szabidev.webshop_backend.facade.dto.RoleData;
+import com.szabidev.webshop_backend.model.PrivilegeModel;
 import com.szabidev.webshop_backend.model.RoleModel;
+import com.szabidev.webshop_backend.service.PrivilegeService;
 import com.szabidev.webshop_backend.service.RoleService;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.stereotype.Component;
@@ -20,6 +22,9 @@ public class DefaultRoleFacade implements RoleFacade {
 
     @Resource(name = "roleService")
     private RoleService roleService;
+
+    @Resource(name = "privilegeService")
+    private PrivilegeService privilegeService;
 
     @Resource(name = "roleDataAssembler")
     private RoleDataAssembler roleDataAssembler;
@@ -58,19 +63,31 @@ public class DefaultRoleFacade implements RoleFacade {
     @Override
     public Optional<RoleData> updateRole(RoleJson roleJson, Long id) {
         RoleModel roleModel = roleJsonConverter.convert(roleJson);
-        return roleService.updateRole(roleModel,id)
+        return roleService.updateRole(roleModel, id)
                 .map(roleDataAssembler::toModel);
     }
 
     @Override
     public Optional<RoleData> patchRole(RoleJson roleJson, Long id) {
         RoleModel roleModel = roleJsonConverter.convert(roleJson);
-        return roleService.patchRole(roleModel,id)
+        return roleService.patchRole(roleModel, id)
                 .map(roleDataAssembler::toModel);
     }
 
     @Override
     public CollectionModel<PrivilegeData> fetchAllPrivileges(Long id) {
         return privilegeDataAssembler.toCollectionModel(roleService.findAllPrivilegesForRole(id));
+    }
+
+    @Override
+    public Optional<RoleData> addPrivilegeToRole(Long roleId, Long privilegeId) {
+        Optional<PrivilegeModel> privilegeModel = privilegeService.getPrivilegeById(privilegeId);
+        return privilegeModel.flatMap(privilege -> roleService.addPrivilegeToRole(roleId, privilege).map(roleDataAssembler::toModel));
+    }
+
+    @Override
+    public Optional<RoleData> removePrivilegeFromRole(Long roleId, Long privilegeId) {
+        Optional<PrivilegeModel> privilegeModel = privilegeService.getPrivilegeById(privilegeId);
+        return privilegeModel.flatMap(privilege -> roleService.removePrivilegeFromRole(roleId, privilege)).map(roleDataAssembler::toModel);
     }
 }

@@ -55,8 +55,22 @@ public class RoleController {
                 .orElse(ResponseEntity.ok().build());
     }
 
-    @GetMapping("/{id}/privileges")
+    @GetMapping("/{id}/privilege")
     public ResponseEntity<?> findAllPrivilegesForRole(@PathVariable Long id){
         return ResponseEntity.ok(roleFacade.fetchAllPrivileges(id));
+    }
+
+    @PatchMapping("/{roleId}/privilege/{privilegeId}")
+    public ResponseEntity<?> addPrivilegeToRole(@PathVariable Long roleId, @PathVariable Long privilegeId){
+        return roleFacade.addPrivilegeToRole(roleId, privilegeId)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.ok().build());
+    }
+
+    @DeleteMapping("/{roleId}/privilege/{privilegeId}")
+    public ResponseEntity<?> removePrivilegeFromRole(@PathVariable Long roleId, @PathVariable Long privilegeId){
+        return roleFacade.removePrivilegeFromRole(roleId, privilegeId)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.ok().build());
     }
 }
