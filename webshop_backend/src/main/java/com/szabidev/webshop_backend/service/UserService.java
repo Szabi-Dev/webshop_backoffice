@@ -77,4 +77,20 @@ public interface UserService {
      */
     Collection<? extends GrantedAuthority> fetchAuthoritiesForUser(String email);
 
+    /**
+     * Add role to user
+     * @param userId - id of user
+     * @param roleModel = {@link RoleModel}
+     * @return {@link Optional<UserModel>}
+     */
+    Optional<UserModel> addRoleToUser(Long userId, RoleModel roleModel);
+
+    /**
+     * Remove role from user
+     * @param userId - id of user
+     * @param roleModel = {@link RoleModel}
+     * @return {@link Optional<UserModel>}
+     */
+    Optional<UserModel> removeRoleFromUser(Long userId, RoleModel roleModel);
+
 }

@@ -103,7 +103,33 @@ public class DefaultUserService implements UserService {
         return authorities;
     }
 
+    @Override
+    public Optional<UserModel> addRoleToUser(Long userId, RoleModel roleModel) {
+        Optional<UserModel> userModel = getUserById(userId);
+        if (!userModel.isPresent()) {
+            return Optional.empty();
+        }
+        UserModel user = userModel.get();
+        if (user.getRoles().contains(roleModel)) {
+            return Optional.empty();
+        }
+        user.getRoles().add(roleModel);
+        return patchUser(user, userId);
+    }
 
+    @Override
+    public Optional<UserModel> removeRoleFromUser(Long userId, RoleModel roleModel) {
+        Optional<UserModel> userModel = getUserById(userId);
+        if (!userModel.isPresent()) {
+            return Optional.empty();
+        }
+        UserModel user = userModel.get();
+        if (!user.getRoles().contains(roleModel)) {
+            return Optional.empty();
+        }
+        user.getRoles().remove(roleModel);
+        return patchUser(user, userId);
+    }
 
 
 }

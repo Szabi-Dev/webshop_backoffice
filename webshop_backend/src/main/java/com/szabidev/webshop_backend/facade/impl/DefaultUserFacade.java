@@ -78,33 +78,14 @@ public class DefaultUserFacade implements UserFacade {
 
     @Override
     public Optional<UserData> addRoleToUser(Long userid, Long roleid) {
-        Optional<UserModel> userModel = userService.getUserById(userid);
-        if (!userModel.isPresent()) {
-            return Optional.empty();
-        }
-
         Optional<RoleModel> roleModel = roleService.getRoleById(roleid);
-        if (!roleModel.isPresent()) {
-            return Optional.empty();
-        }
-        userModel.get().getRoles().add(roleModel.get());
-
-        return userService.patchUser(userModel.get(), userid).map(userDataAssembler::toModel);
+        return roleModel.flatMap(role -> userService.addRoleToUser(userid,role)).map(userDataAssembler::toModel);
     }
 
     @Override
     public Optional<UserData> removeRoleFromUser(Long userid, Long roleid) {
-        Optional<UserModel> userModel = userService.getUserById(userid);
-        if (!userModel.isPresent()) {
-            return Optional.empty();
-        }
-
         Optional<RoleModel> roleModel = roleService.getRoleById(roleid);
-        if (!roleModel.isPresent()) {
-            return Optional.empty();
-        }
-        userModel.get().getRoles().remove(roleModel.get());
-        return userService.patchUser(userModel.get(), userid).map(userDataAssembler::toModel);
+        return roleModel.flatMap(role -> userService.removeRoleFromUser(userid,role)).map(userDataAssembler::toModel);
     }
 
 
