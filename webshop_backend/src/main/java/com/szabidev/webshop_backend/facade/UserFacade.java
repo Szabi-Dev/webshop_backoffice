@@ -70,11 +70,20 @@ public interface UserFacade {
 
     /**
      * Add role to a user
-     * 
+     *
      * @param userid - id of a user
      * @param roleid - id of a role
      * @return {@link Optional<UserData>}
      */
     Optional<UserData> addRoleToUser(Long userid, Long roleid);
+
+    /**
+     * Remove a role from a user
+     *
+     * @param userid - id of a user
+     * @param roleid - id of a role
+     * @return {@link Optional<UserData>}
+     */
+    Optional<UserData> removeRoleFromUser(Long userid, Long roleid);
 
 }

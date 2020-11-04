@@ -70,7 +70,8 @@ public class UserController {
 
     @DeleteMapping("/{userid}/role/{roleid}")
     public ResponseEntity<?> deleteRoleFromUser(@PathVariable Long userid, @PathVariable Long roleid){
-        //TODO
-        return ResponseEntity.ok().build();
+        return userFacade.removeRoleFromUser(userid, roleid)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.ok().build());
     }
 }
