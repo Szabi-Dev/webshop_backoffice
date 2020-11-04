@@ -5,6 +5,7 @@ import { RestCaller } from '../../../services/util/restCaller';
 export default function RestButton(props){
 
     const handleOnClick = () => {
+        console.log(props)
         RestCaller().makeRequest(props.actionLink['href'], props.action, props.payLoad)
             .then(props.handleResponse)
     }

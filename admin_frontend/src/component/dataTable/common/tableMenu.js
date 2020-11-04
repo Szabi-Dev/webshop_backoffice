@@ -30,7 +30,7 @@ export default function TableMenu(props){
         </IconButton>
         <Menu id="simple-menu" anchorEl={anchorEl} keepMounted open={Boolean(anchorEl)} onClose={handleClose} >
             <DeleteMenuItem handleClose={handleClose} actionLink={props.currentItem["_links"]["self"]} handleResponse={props.handleResponse}/>
-            <EditMenuItem currentItem={props.currentItem} actionLink={props.currentItem["_links"]["self"]} editTabs={props.editTabs}/>
+            <EditMenuItem currentItem={props.currentItem} actionLink={props.currentItem["_links"]["self"]} editTabs={props.editTabs} handleClose={handleClose} handleResponse={props.handleResponse}/>
         </Menu>
         </div>
         

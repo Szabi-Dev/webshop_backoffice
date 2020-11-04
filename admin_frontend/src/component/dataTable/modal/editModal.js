@@ -12,7 +12,7 @@ export default function EditModal(props){
 
     const footer =(
         <div>
-            <RestButton name="Edit" actionLink={props.actionLink} action="PATCH" payLoad={props.payLoad} handleResponse={props.handleModalClose} />
+            <RestButton name="Edit" actionLink={props.actionLink} action="PATCH" payLoad={props.payload} handleResponse={props.handleModalClose} />
             <Button variant="contained" onClick={props.handleModalClose}>Cancel</Button>
         </div>
     )
