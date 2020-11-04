@@ -15,7 +15,7 @@ const useStyles = makeStyles({
 
 const menu = [
     {id : "user", displayName : "User", link: "/user"},
-    {id : "privileges", displayName : "Privileges", link: "/privileges"},
+    {id : "role", displayName : "Role", link: "/role"},
 ]
 
 

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Route, Switch } from "react-router-dom";
+import RolePage from '../page/rolePage';
 import UserPage from '../page/userPage';
 
 export default function SimpleRouter(props){
@@ -10,10 +11,10 @@ export default function SimpleRouter(props){
         <Route exact path="/user">
             <UserPage />
         </Route>
-        <Route exact path="/privileges">
-            <h2>Privileges</h2>
+        <Route exact path="/role">
+            <RolePage />
         </Route>
-
+        
     </Switch> 
     )
 }
