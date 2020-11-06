@@ -25,6 +25,6 @@ public class LocaleProvider {
 
 
     private static List<String> getSupportedLanguages() {
-        return Arrays.asList(DEFAULT_LANGUAGE, "en", "es");
+        return Arrays.asList(DEFAULT_LANGUAGE, "en", "sk");
     }
 }
