@@ -1,11 +1,9 @@
 package com.szabidev.webshop_backend.controller;
 
+import com.szabidev.webshop_backend.controller.dto.ProductJson;
 import com.szabidev.webshop_backend.facade.ProductFacade;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
@@ -24,6 +22,13 @@ public class ProductController {
     @GetMapping("/{id}")
     public ResponseEntity<?> getProductById(@PathVariable Long id){
         return productFacade.getProductById(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.ok().build());
+    }
+
+    @PostMapping
+    public ResponseEntity<?> createProduct(@RequestBody ProductJson productJson){
+        return productFacade.createProduct(productJson)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.ok().build());
     }

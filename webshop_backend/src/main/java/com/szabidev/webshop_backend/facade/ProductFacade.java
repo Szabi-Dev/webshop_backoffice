@@ -1,5 +1,6 @@
 package com.szabidev.webshop_backend.facade;
 
+import com.szabidev.webshop_backend.controller.dto.ProductJson;
 import com.szabidev.webshop_backend.facade.dto.ProductData;
 import org.springframework.hateoas.CollectionModel;
 
@@ -13,4 +14,6 @@ public interface ProductFacade {
     CollectionModel<ProductData> findAllProducts();
 
     Optional<ProductData> getProductById(Long id);
+
+    Optional<ProductData> createProduct(ProductJson productJson);
 }

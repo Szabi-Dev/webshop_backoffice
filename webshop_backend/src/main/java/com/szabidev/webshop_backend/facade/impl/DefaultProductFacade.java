@@ -1,8 +1,11 @@
 package com.szabidev.webshop_backend.facade.impl;
 
+import com.szabidev.webshop_backend.controller.dto.ProductJson;
 import com.szabidev.webshop_backend.facade.ProductFacade;
 import com.szabidev.webshop_backend.facade.assembler.ProductDataAssembler;
+import com.szabidev.webshop_backend.facade.converter.ProductJsonConverter;
 import com.szabidev.webshop_backend.facade.dto.ProductData;
+import com.szabidev.webshop_backend.model.ProductModel;
 import com.szabidev.webshop_backend.service.ProductService;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.stereotype.Component;
@@ -20,6 +23,9 @@ public class DefaultProductFacade implements ProductFacade {
     @Resource(name = "productDataAssembler")
     private ProductDataAssembler productDataAssembler;
 
+    @Resource(name = "productJsonConverter")
+    private ProductJsonConverter productJsonConverter;
+
     @Override
     public CollectionModel<ProductData> findAllProducts() {
         return productDataAssembler.toCollectionModel(productService.findAllProducts());
@@ -29,5 +35,11 @@ public class DefaultProductFacade implements ProductFacade {
     public Optional<ProductData> getProductById(Long id) {
         return productService.getProductById(id)
                 .map(productDataAssembler::toModel);
+    }
+
+    @Override
+    public Optional<ProductData> createProduct(ProductJson productJson) {
+        ProductModel productModel = productJsonConverter.convert(productJson);
+        return productService.createProduct(productModel).map(productDataAssembler::toModel);
     }
 }
