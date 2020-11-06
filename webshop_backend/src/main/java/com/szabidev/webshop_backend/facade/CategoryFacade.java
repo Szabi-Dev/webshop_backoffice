@@ -16,5 +16,11 @@ public interface CategoryFacade {
 
     Optional<CategoryData> createCategory(CategoryJson categoryJson);
 
+    Optional<CategoryData> updateCategory(CategoryJson categoryJson, Long id);
+
+    Optional<CategoryData> patchCategory(CategoryJson categoryJson, Long id);
+
+    Optional<CategoryData> deleteCategory(Long id);
+
     CollectionModel<CategoryData> fetchAllCategories();
 }

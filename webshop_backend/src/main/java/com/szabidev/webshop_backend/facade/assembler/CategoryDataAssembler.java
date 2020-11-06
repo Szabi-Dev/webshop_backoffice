@@ -48,6 +48,10 @@ public class CategoryDataAssembler implements RepresentationModelAssembler<Categ
         CategoryData categoryData = new CategoryData();
         String lang = localizationService.getLocalization();
         categoryData.setId(categoryModel.getId());
+        if (categoryModel.getLocalizations().get(lang) == null){
+            return categoryData;
+        }
+
         categoryData.setName(categoryModel.getLocalizations().get(lang).getCategoryName());
         return categoryData;
     }

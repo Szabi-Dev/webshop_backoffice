@@ -34,4 +34,25 @@ public class CategoryController {
                 .orElse(ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build());
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<?> putCategory(@PathVariable Long id, @RequestBody CategoryJson categoryJson){
+        return categoryFacade.updateCategory(categoryJson, id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.status(HttpStatus.OK).build());
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<?> patchCategory(@PathVariable Long id,  @RequestBody CategoryJson categoryJson){
+        return categoryFacade.patchCategory(categoryJson, id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.status(HttpStatus.OK).build());
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteCategory(@PathVariable Long id){
+        return categoryFacade.deleteCategory(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.status(HttpStatus.OK).build());
+    }
+
 }

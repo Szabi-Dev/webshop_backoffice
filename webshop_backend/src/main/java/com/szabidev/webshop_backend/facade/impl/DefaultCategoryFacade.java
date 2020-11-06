@@ -41,6 +41,26 @@ public class DefaultCategoryFacade implements CategoryFacade {
                 .map(assembler::toModel);
     }
 
+    @Override
+    public Optional<CategoryData> updateCategory(CategoryJson categoryJson, Long id) {
+        CategoryModel categoryModel = converter.convert(categoryJson);
+        return categoryService.updateCategory(categoryModel, id)
+                .map(assembler::toModel);
+    }
+
+    @Override
+    public Optional<CategoryData> patchCategory(CategoryJson categoryJson, Long id) {
+        CategoryModel categoryModel = converter.convert(categoryJson);
+        return categoryService.patchCategory(categoryModel, id)
+                .map(assembler::toModel);
+    }
+
+    @Override
+    public Optional<CategoryData> deleteCategory(Long id) {
+        return categoryService.deleteCategory(id)
+                .map(assembler::toModel);
+    }
+
 
     @Override
     public CollectionModel<CategoryData> fetchAllCategories() {
