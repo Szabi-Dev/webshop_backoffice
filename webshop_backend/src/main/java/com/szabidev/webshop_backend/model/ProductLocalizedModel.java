@@ -19,7 +19,7 @@ public class ProductLocalizedModel {
     @Column(name = "description")
     private String description;
 
-    @Column(name = "fkProduct")
+    @ManyToOne
     private ProductModel fkProduct;
 
     public ProductLocalizedModel() {
