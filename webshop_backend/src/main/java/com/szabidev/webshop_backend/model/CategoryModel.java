@@ -1,7 +1,5 @@
 package com.szabidev.webshop_backend.model;
 
-import com.szabidev.webshop_backend.model.util.LocaleProvider;
-
 import javax.persistence.*;
 import java.util.HashMap;
 import java.util.Map;

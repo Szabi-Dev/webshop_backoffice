@@ -2,6 +2,8 @@ package com.szabidev.webshop_backend.model;
 
 import javax.persistence.*;
 
+@Entity
+@Table (name = "CATEGORY_LOCALIZED_TABLE")
 public class CategoryLocalizedModel {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -14,7 +16,6 @@ public class CategoryLocalizedModel {
     private String categoryName;
 
     @ManyToOne
-    @JoinColumn(name = "Id")
     private CategoryModel fkCategory;
 
     public CategoryLocalizedModel(){}
