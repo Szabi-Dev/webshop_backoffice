@@ -42,4 +42,15 @@ public class DefaultProductFacade implements ProductFacade {
         ProductModel productModel = productJsonConverter.convert(productJson);
         return productService.createProduct(productModel).map(productDataAssembler::toModel);
     }
+
+    @Override
+    public Optional<ProductData> patchProduct(ProductJson productJson, Long id) {
+        ProductModel productModel = productJsonConverter.convert(productJson);
+        return productService.patchProduct(productModel,id).map(productDataAssembler::toModel) ;
+    }
+
+    @Override
+    public Optional<ProductData> deleteProduct(Long id) {
+        return productService.deleteProduct(id).map(productDataAssembler::toModel);
+    }
 }

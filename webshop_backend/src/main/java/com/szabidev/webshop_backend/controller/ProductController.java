@@ -32,4 +32,18 @@ public class ProductController {
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.ok().build());
     }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<?> patchProduct(@PathVariable Long id, @RequestBody ProductJson productJson) {
+        return productFacade.patchProduct(productJson, id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.ok().build());
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteProduct(@PathVariable Long id) {
+        return productFacade.deleteProduct( id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.ok().build());
+    }
 }

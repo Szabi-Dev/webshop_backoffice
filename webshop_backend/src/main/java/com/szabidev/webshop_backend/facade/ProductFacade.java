@@ -16,4 +16,8 @@ public interface ProductFacade {
     Optional<ProductData> getProductById(Long id);
 
     Optional<ProductData> createProduct(ProductJson productJson);
+
+    Optional<ProductData> patchProduct(ProductJson productJson, Long id);
+
+    Optional<ProductData> deleteProduct(Long id);
 }
