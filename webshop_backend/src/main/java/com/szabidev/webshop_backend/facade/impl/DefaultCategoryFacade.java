@@ -1,8 +1,11 @@
 package com.szabidev.webshop_backend.facade.impl;
 
+import com.szabidev.webshop_backend.controller.dto.CategoryJson;
 import com.szabidev.webshop_backend.facade.CategoryFacade;
 import com.szabidev.webshop_backend.facade.assembler.CategoryDataAssembler;
+import com.szabidev.webshop_backend.facade.converter.CategoryJsonConverter;
 import com.szabidev.webshop_backend.facade.dto.CategoryData;
+import com.szabidev.webshop_backend.model.CategoryModel;
 import com.szabidev.webshop_backend.service.CategoryService;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.stereotype.Component;
@@ -22,11 +25,22 @@ public class DefaultCategoryFacade implements CategoryFacade {
     @Resource(name = "categoryDataAssembler")
     private CategoryDataAssembler assembler;
 
+    @Resource(name = "categoryJsonConverter")
+    private CategoryJsonConverter converter;
+
     @Override
     public Optional<CategoryData> getCategoryById(Long id) {
         return categoryService.getCategoryById(id)
                 .map(assembler::toModel);
     }
+
+    @Override
+    public Optional<CategoryData> createCategory(CategoryJson categoryJson) {
+        CategoryModel categoryModel = converter.convert(categoryJson);
+        return categoryService.createCategory(categoryModel)
+                .map(assembler::toModel);
+    }
+
 
     @Override
     public CollectionModel<CategoryData> fetchAllCategories() {

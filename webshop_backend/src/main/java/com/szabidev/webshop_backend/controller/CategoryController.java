@@ -1,12 +1,10 @@
 package com.szabidev.webshop_backend.controller;
 
+import com.szabidev.webshop_backend.controller.dto.CategoryJson;
 import com.szabidev.webshop_backend.facade.CategoryFacade;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
@@ -20,6 +18,13 @@ public class CategoryController {
     @GetMapping
     public ResponseEntity<?> fetchAllCategories(){
         return ResponseEntity.ok(categoryFacade.fetchAllCategories());
+    }
+
+    @PostMapping
+    public ResponseEntity<?> createCategory(@RequestBody CategoryJson categoryJson) {
+        return categoryFacade.createCategory(categoryJson)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.ok().build());
     }
 
     @GetMapping("/{id}")

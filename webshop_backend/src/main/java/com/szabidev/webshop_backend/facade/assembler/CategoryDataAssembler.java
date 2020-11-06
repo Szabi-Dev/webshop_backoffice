@@ -28,7 +28,7 @@ public class CategoryDataAssembler implements RepresentationModelAssembler<Categ
     private CategoryData convert(CategoryModel categoryModel) {
         CategoryData categoryData = new CategoryData();
         //TODO fetch the language
-        String lang = "hu";
+        String lang = "de";
         categoryData.setId(categoryModel.getId());
         categoryData.setName(categoryModel.getLocalizations().get(lang).getCategoryName());
         return categoryData;
