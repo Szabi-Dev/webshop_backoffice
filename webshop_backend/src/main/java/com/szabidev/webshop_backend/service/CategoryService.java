@@ -31,14 +31,6 @@ public interface CategoryService {
     Optional<CategoryModel> createCategory(CategoryModel categoryModel);
 
     /**
-     * Method to update category
-     * @param categoryModel - {@link CategoryModel}
-     * @param id - category id
-     * @return {@link Optional<CategoryModel>}
-     */
-    Optional<CategoryModel> updateCategory(CategoryModel categoryModel, Long id);
-
-    /**
      * Method to patch category (update just fields that are present)
      * @param categoryModel - {@link CategoryModel}
      * @param id - category id

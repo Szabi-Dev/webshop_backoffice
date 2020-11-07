@@ -35,20 +35,10 @@ public class DefaultCategoryService implements CategoryService {
     }
 
     @Override
-    public Optional<CategoryModel> updateCategory(CategoryModel categoryModel, Long id) {
-        Optional<CategoryModel> modelToBeUpdated = categoryRepository.findById(id);
-        if (!modelToBeUpdated.isPresent()) {
-            return createCategory(categoryModel);
-        }
-        categoryPopulator.populatePut(modelToBeUpdated.get(), categoryModel);
-        return Optional.of(categoryRepository.save(modelToBeUpdated.get()));
-    }
-
-    @Override
     public Optional<CategoryModel> patchCategory(CategoryModel categoryModel, Long id) {
         Optional<CategoryModel> modelToBeUpdated = categoryRepository.findById(id);
         if (!modelToBeUpdated.isPresent()) {
-            return createCategory(categoryModel);
+            return Optional.empty();
         }
         categoryPopulator.populatePatch(modelToBeUpdated.get(), categoryModel);
         return Optional.of(categoryRepository.save(modelToBeUpdated.get()));

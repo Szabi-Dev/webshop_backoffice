@@ -25,14 +25,6 @@ public interface CategoryFacade {
     Optional<CategoryData> createCategory(CategoryJson categoryJson);
 
     /**
-     * Method to upodate category
-     * @param categoryJson - {@link CategoryJson}
-     * @param id - category id
-     * @return {@link Optional<CategoryData>}
-     */
-    Optional<CategoryData> updateCategory(CategoryJson categoryJson, Long id);
-
-    /**
      * Method to patch category
      * @param categoryJson - {@link CategoryJson}
      * @param id - category id

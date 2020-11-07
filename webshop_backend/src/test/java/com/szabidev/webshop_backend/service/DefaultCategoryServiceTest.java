@@ -69,29 +69,6 @@ public class DefaultCategoryServiceTest {
         verify(categoryRepository, times(1)).save(categoryModel);
     }
 
-    @Test
-    public void updateCategory() {
-        //given
-        when(categoryRepository.findById(ID)).thenReturn(Optional.of(categoryModel));
-        when(categoryRepository.save(categoryModel)).thenReturn(categoryModel);
-        //when
-        service.updateCategory(categoryModel, ID);
-        //then
-        verify(categoryRepository, times(1)).save(categoryModel);
-        verify(categoryPopulator, times(1)).populatePut(categoryModel, categoryModel);
-    }
-
-    @Test
-    public void updateCategoryNonExisting() {
-        //given
-        when(categoryRepository.findById(ID)).thenReturn(Optional.empty());
-        when(categoryRepository.save(categoryModel)).thenReturn(categoryModel);
-        //when
-        service.updateCategory(categoryModel, ID);
-        //then
-        verify(categoryRepository, times(1)).save(categoryModel);
-        verify(categoryPopulator, times(0)).populatePut(categoryModel, categoryModel);
-    }
 
     @Test
     public void patchCategory() {
@@ -109,11 +86,10 @@ public class DefaultCategoryServiceTest {
     public void patchCategoryNonExisting() {
         //given
         when(categoryRepository.findById(ID)).thenReturn(Optional.empty());
-        when(categoryRepository.save(categoryModel)).thenReturn(categoryModel);
         //when
         service.patchCategory(categoryModel, ID);
         //then
-        verify(categoryRepository, times(1)).save(categoryModel);
+        verify(categoryRepository, times(0)).save(categoryModel);
         verify(categoryPopulator, times(0)).populatePatch(categoryModel, categoryModel);
     }
 
