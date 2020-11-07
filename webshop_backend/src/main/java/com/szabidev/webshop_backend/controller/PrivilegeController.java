@@ -34,12 +34,6 @@ public class PrivilegeController {
                 .orElse(ResponseEntity.status(HttpStatus.OK).build());
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<?> replacePrivilege(@PathVariable Long id, @RequestBody PrivilegeJson PrivilegeJson){
-        return privilegeFacade.updatePrivilege(PrivilegeJson, id)
-                .map(data -> ResponseEntity.status(HttpStatus.CREATED).body(data))
-                .orElse(ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build());
-    }
 
     @PatchMapping("/{id}")
     public ResponseEntity<?> updatePrivilege(@PathVariable Long id, @RequestBody PrivilegeJson PrivilegeJson){

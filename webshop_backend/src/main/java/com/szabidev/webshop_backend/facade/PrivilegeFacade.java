@@ -42,13 +42,6 @@ public interface PrivilegeFacade {
     Optional<PrivilegeData> createPrivilege(PrivilegeJson privilegeJson);
 
     /**
-     * Update a Privilege
-     * @param privilegeJson - Privilege with the update
-     * @return {@link Optional<PrivilegeData>}
-     */
-    Optional<PrivilegeData> updatePrivilege(PrivilegeJson privilegeJson, Long id);
-
-    /**
      * Patch a Privilege (update just specific fields)
      * @param privilegeJson - json holding the data
      * @param id - id of the Privilege to be updated

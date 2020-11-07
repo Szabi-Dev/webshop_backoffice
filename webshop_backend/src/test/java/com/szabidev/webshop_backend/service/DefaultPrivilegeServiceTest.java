@@ -106,42 +106,33 @@ public class DefaultPrivilegeServiceTest {
         assertEquals(Optional.empty(), result);
     }
 
-    @Test
-    public void testUpdatePrivilege(){
-        //TODO
-    }
-
-    @Test
-    public void testUpdatePrivilegeNotExists(){
-        //given
-        when(privilegeRepository.existsById(ID)).thenReturn(false);
-        when(privilegeRepository.findByName(name)).thenReturn(Optional.empty());
-        when(privilegeRepository.save(privilegeModel)).thenReturn(privilegeModel);
-
-        //when
-        defaultPrivilegeService.updatePrivilege(privilegeModel, ID);
-        //then
-        verify(privilegePopulator, times(0)).populatePut(any(), any());
-        verify(privilegeRepository, times(1)).save(privilegeModel);
-    }
 
     @Test
     public void testPatchPrivilege(){
-       //TODO
+        //given
+        when(privilegeRepository.existsById(ID)).thenReturn(true);
+        when(privilegeRepository.save(privilegeModel)).thenReturn(privilegeModel);
+        when(privilegeRepository.findById(ID)).thenReturn(Optional.of(privilegeModel));
+
+        //when
+        defaultPrivilegeService.patchPrivilege(privilegeModel, ID);
+
+        //then
+        verify(privilegePopulator, times(1)).populatePatch(privilegeModel, privilegeModel);
+        verify(privilegeRepository, times(1)).save(privilegeModel);
+
     }
 
     @Test
     public void testPatchPrivilegeNotExists(){
         //given
         when(privilegeRepository.existsById(ID)).thenReturn(false);
-        when(privilegeRepository.findByName(name)).thenReturn(Optional.empty());
-        when(privilegeRepository.save(privilegeModel)).thenReturn(privilegeModel);
 
         //when
         defaultPrivilegeService.patchPrivilege(privilegeModel, ID);
         //then
-        verify(privilegePopulator, times(0)).populatePatch(any(), any());
-        verify(privilegeRepository, times(1)).save(privilegeModel);
+        verify(privilegePopulator, times(0)).populatePatch(privilegeModel, privilegeModel);
+        verify(privilegeRepository, times(0)).save(privilegeModel);
     }
 
 }

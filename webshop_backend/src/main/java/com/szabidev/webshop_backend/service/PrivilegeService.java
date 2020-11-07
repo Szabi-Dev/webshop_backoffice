@@ -41,15 +41,6 @@ public interface PrivilegeService {
     Optional<PrivilegeModel> createPrivilege(PrivilegeModel privilegeModel);
 
     /**
-     * Update Privilege
-     *
-     * @param privilegeModel - {@link PrivilegeModel}
-     * @param id - id of the Privilege to be updated
-     * @return {@link PrivilegeModel}
-     */
-    Optional<PrivilegeModel> updatePrivilege(PrivilegeModel privilegeModel, Long id);
-
-    /**
      * Patch Privilege (update only the subset of attributes)
      *
      * @param privilegeModel - model sent in the request

@@ -52,12 +52,6 @@ public class DefaultPrivilegeFacade implements PrivilegeFacade {
                 .map(privilegeDataAssembler::toModel);
     }
 
-    @Override
-    public Optional<PrivilegeData> updatePrivilege(PrivilegeJson privilegeJson, Long id) {
-        PrivilegeModel privilegeModel = privilegeJsonConverter.convert(privilegeJson);
-        return privilegeService.updatePrivilege(privilegeModel, id)
-                .map(privilegeDataAssembler::toModel);
-    }
 
     @Override
     public Optional<PrivilegeData> patchPrivilege(PrivilegeJson privilegeJson, Long id) {

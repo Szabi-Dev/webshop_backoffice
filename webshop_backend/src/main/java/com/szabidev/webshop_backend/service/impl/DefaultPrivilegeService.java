@@ -48,19 +48,9 @@ public class DefaultPrivilegeService implements PrivilegeService {
     }
 
     @Override
-    public Optional<PrivilegeModel> updatePrivilege(PrivilegeModel privilegeModel, Long id) {
-        if (!privilegeRepository.existsById(id)){
-            return createPrivilege(privilegeModel);
-        }
-        PrivilegeModel privilegeToBeUpdated = privilegeRepository.findById(id).get();
-        privilegePopulator.populatePut(privilegeToBeUpdated, privilegeModel);
-        return Optional.of(privilegeRepository.save(privilegeToBeUpdated));
-    }
-
-    @Override
     public Optional<PrivilegeModel> patchPrivilege(PrivilegeModel privilegeModel, Long id) {
         if (!privilegeRepository.existsById(id)){
-            return createPrivilege(privilegeModel);
+            return Optional.empty();
         }
         PrivilegeModel privilegeToBeUpdated = privilegeRepository.findById(id).get();
         privilegePopulator.populatePatch(privilegeToBeUpdated, privilegeModel);
