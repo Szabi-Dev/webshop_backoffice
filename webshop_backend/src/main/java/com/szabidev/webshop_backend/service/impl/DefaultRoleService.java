@@ -49,20 +49,11 @@ public class DefaultRoleService implements RoleService {
         return Optional.of(roleRepository.save(roleModel));
     }
 
-    @Override
-    public Optional<RoleModel> updateRole(RoleModel roleModel, Long id) {
-        if (!roleRepository.existsById(id)) {
-            return createRole(roleModel);
-        }
-        RoleModel roleToBeUpdated = roleRepository.findById(id).get();
-        rolePopulator.populatePut(roleToBeUpdated, roleModel);
-        return Optional.of(roleRepository.save(roleToBeUpdated));
-    }
 
     @Override
     public Optional<RoleModel> patchRole(RoleModel roleModel, Long id) {
         if (!roleRepository.existsById(id)) {
-            return createRole(roleModel);
+            return Optional.empty();
         }
         RoleModel roleToBeUpdated = roleRepository.findById(id).get();
         rolePopulator.populatePatch(roleToBeUpdated, roleModel);

@@ -60,12 +60,7 @@ public class DefaultRoleFacade implements RoleFacade {
                 .map(roleDataAssembler::toModel);
     }
 
-    @Override
-    public Optional<RoleData> updateRole(RoleJson roleJson, Long id) {
-        RoleModel roleModel = roleJsonConverter.convert(roleJson);
-        return roleService.updateRole(roleModel, id)
-                .map(roleDataAssembler::toModel);
-    }
+
 
     @Override
     public Optional<RoleData> patchRole(RoleJson roleJson, Long id) {

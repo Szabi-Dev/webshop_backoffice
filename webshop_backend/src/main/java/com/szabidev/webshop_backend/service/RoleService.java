@@ -39,14 +39,6 @@ public interface RoleService {
      */
     Optional<RoleModel> createRole(RoleModel roleModel);
 
-    /**
-     * Update Role
-     *
-     * @param roleModel - {@link RoleModel}
-     * @param id - id of the Role to be updated
-     * @return {@link RoleModel}
-     */
-    Optional<RoleModel> updateRole(RoleModel roleModel, Long id);
 
     /**
      * Patch Role (update only the subset of attributes)

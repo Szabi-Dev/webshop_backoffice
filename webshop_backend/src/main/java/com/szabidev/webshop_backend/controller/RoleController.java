@@ -34,12 +34,6 @@ public class RoleController {
                 .orElse(ResponseEntity.status(HttpStatus.OK).build());
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<?> replaceRole(@PathVariable Long id, @RequestBody RoleJson RoleJson){
-        return roleFacade.updateRole(RoleJson, id)
-                .map(data -> ResponseEntity.status(HttpStatus.CREATED).body(data))
-                .orElse(ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build());
-    }
 
     @PatchMapping("/{id}")
     public ResponseEntity<?> updateRole(@PathVariable Long id, @RequestBody RoleJson RoleJson){

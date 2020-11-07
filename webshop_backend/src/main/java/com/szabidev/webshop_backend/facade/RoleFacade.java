@@ -44,12 +44,6 @@ public interface RoleFacade {
      */
     Optional<RoleData> createRole(RoleJson roleJson);
 
-    /**
-     * Update a Role
-     * @param roleJson - Role with the update
-     * @return {@link Optional<RoleData>}
-     */
-    Optional<RoleData> updateRole(RoleJson roleJson, Long id);
 
     /**
      * Patch a Role (update just specific fields)
