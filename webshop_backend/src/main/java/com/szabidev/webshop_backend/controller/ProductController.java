@@ -46,4 +46,23 @@ public class ProductController {
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.ok().build());
     }
+
+    @GetMapping("/{productId}/category")
+    public ResponseEntity<?> getAllCategories(@PathVariable Long productId){
+        return ResponseEntity.ok(productFacade.findAllCategoriesForProduct(productId));
+    }
+
+    @PatchMapping("/{productId}/category/{categoryId}")
+    public ResponseEntity<?> addCategoryToProduct(@PathVariable Long productId, @PathVariable Long categoryId) {
+        return productFacade.addCategoryToProduct(productId, categoryId)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.ok().build());
+    }
+
+    @DeleteMapping("/{productId}/category/{categoryId}")
+    public ResponseEntity<?> deleteCategoryFromProduct(@PathVariable Long productId, @PathVariable Long categoryId) {
+        return productFacade.removeCategoryFromProduct(productId, categoryId)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.ok().build());
+    }
 }

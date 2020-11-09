@@ -1,12 +1,14 @@
 package com.szabidev.webshop_backend.service.impl;
 
 import com.szabidev.webshop_backend.dao.ProductRepository;
+import com.szabidev.webshop_backend.model.CategoryModel;
 import com.szabidev.webshop_backend.model.ProductModel;
 import com.szabidev.webshop_backend.service.ProductService;
 import com.szabidev.webshop_backend.service.populator.impl.ProductPopulator;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -57,4 +59,41 @@ public class DefaultProductService implements ProductService {
         productRepository.delete(product.get());
         return product;
     }
+
+    @Override
+    public List<CategoryModel> findAllCategoriesForProduct(Long id) {
+        Optional<ProductModel> productModel = productRepository.findById(id);
+        return productModel.map(product -> new ArrayList<>(product.getCategories()))
+                .orElseGet(ArrayList::new);
+    }
+
+    @Override
+    public Optional<ProductModel> addCategoryToProduct(Long id, CategoryModel categoryModel) {
+        Optional<ProductModel> productModel = productRepository.findById(id);
+        if (!productModel.isPresent()){
+            return Optional.empty();
+        }
+        ProductModel product = productModel.get();
+        if (product.getCategories().contains(categoryModel)) {
+            return Optional.empty();
+        }
+        product.getCategories().add(categoryModel);
+        return Optional.of(productRepository.save(product));
+    }
+
+    @Override
+    public Optional<ProductModel> removeCategoryFromProduct(Long id, CategoryModel categoryModel) {
+        Optional<ProductModel> productModel = productRepository.findById(id);
+        if (!productModel.isPresent()){
+            return Optional.empty();
+        }
+        ProductModel product = productModel.get();
+        if (!product.getCategories().contains(categoryModel)) {
+            return Optional.empty();
+        }
+        product.getCategories().remove(categoryModel);
+        return Optional.of(productRepository.save(product));
+    }
+
+
 }

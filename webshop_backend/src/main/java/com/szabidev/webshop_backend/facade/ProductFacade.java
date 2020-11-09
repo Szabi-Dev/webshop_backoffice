@@ -1,9 +1,11 @@
 package com.szabidev.webshop_backend.facade;
 
 import com.szabidev.webshop_backend.controller.dto.ProductJson;
+import com.szabidev.webshop_backend.facade.dto.CategoryData;
 import com.szabidev.webshop_backend.facade.dto.ProductData;
 import org.springframework.hateoas.CollectionModel;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -49,4 +51,27 @@ public interface ProductFacade {
      * @return {@link Optional<ProductData>}
      */
     Optional<ProductData> deleteProduct(Long id);
+
+    /**
+     * Method to find all categories
+     * @param id - id
+     * @return {@link List<CategoryData>  }
+     */
+    CollectionModel<CategoryData> findAllCategoriesForProduct(Long id);
+
+    /**
+     * Method to add category to product
+     * @param productId - product id
+     * @param categoryId - category id
+     * @return {@link Optional<ProductData>}
+     */
+    Optional<ProductData> addCategoryToProduct(Long productId, Long categoryId);
+
+    /**
+     * Method to remove category from product
+     * @param productId - product id
+     * @param categoryId - category id
+     * @return {@link Optional<ProductData>}
+     */
+    Optional<ProductData> removeCategoryFromProduct(Long productId, Long categoryId);
 }

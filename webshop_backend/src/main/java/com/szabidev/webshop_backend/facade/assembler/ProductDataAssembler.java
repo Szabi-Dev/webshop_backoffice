@@ -25,6 +25,7 @@ public class ProductDataAssembler implements RepresentationModelAssembler<Produc
 
     private static final String ALL_PRODUCTS_REL = "products";
     private static final String CREATE_PRODUCT_REL = "create";
+    private static final String CATEGORIES = "categories";
 
 
     @Override
@@ -32,6 +33,7 @@ public class ProductDataAssembler implements RepresentationModelAssembler<Produc
         ProductData productData = convert(entity);
         populateSelfLink(productData);
         populateLinkToAll(productData, ALL_PRODUCTS_REL);
+        populateLinkToCategories(productData, CATEGORIES);
         return productData;
     }
 
@@ -63,5 +65,9 @@ public class ProductDataAssembler implements RepresentationModelAssembler<Produc
 
     private void populateLinkToAll(ProductData productData, String rel){
         productData.add(linkTo(methodOn(ProductController.class).findAllProducts()).withRel(rel));
+    }
+
+    private void populateLinkToCategories(ProductData productData, String rel){
+        productData.add(linkTo(methodOn(ProductController.class).getAllCategories(productData.getId())).withRel(rel));
     }
 }
