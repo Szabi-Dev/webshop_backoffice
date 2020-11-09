@@ -25,6 +25,12 @@ public class ProductModel {
             inverseJoinColumns = @JoinColumn(name = "category_id", referencedColumnName = "id"))
     private Collection<CategoryModel> categories;
 
+    @ManyToMany
+    @JoinTable( name = "product_deliverymodes",
+            joinColumns = @JoinColumn(name = "product_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "deliverymode_id", referencedColumnName = "id"))
+    private Collection<DeliveryModeModel> deliveryModes;
+
     public ProductModel() {
     }
 
@@ -58,5 +64,13 @@ public class ProductModel {
 
     public void setCategories(Collection<CategoryModel> categories) {
         this.categories = categories;
+    }
+
+    public Collection<DeliveryModeModel> getDeliveryModes() {
+        return deliveryModes;
+    }
+
+    public void setDeliveryModes(Collection<DeliveryModeModel> deliveryModes) {
+        this.deliveryModes = deliveryModes;
     }
 }
