@@ -4,9 +4,11 @@ import com.szabidev.webshop_backend.model.CategoryLocalizedModel;
 import com.szabidev.webshop_backend.model.DeliveryModeLocalizedModel;
 import com.szabidev.webshop_backend.model.DeliveryModeModel;
 import com.szabidev.webshop_backend.service.populator.Populator;
+import org.springframework.stereotype.Component;
 
 import java.util.Map;
 
+@Component("deliveryModePopulator")
 public class DeliveryModePopulator implements Populator<DeliveryModeModel, DeliveryModeModel> {
     @Override
     public void populatePut(DeliveryModeModel target, DeliveryModeModel source) {

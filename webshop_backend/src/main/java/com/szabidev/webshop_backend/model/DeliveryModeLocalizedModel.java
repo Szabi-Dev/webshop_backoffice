@@ -12,7 +12,7 @@ public class DeliveryModeLocalizedModel {
     private Long id;
 
     @Column(name = "locale")
-    private Locale locale;
+    private String locale;
 
     @Column(name = "name")
     private String name;
@@ -30,11 +30,11 @@ public class DeliveryModeLocalizedModel {
         this.id = id;
     }
 
-    public Locale getLocale() {
+    public String getLocale() {
         return locale;
     }
 
-    public void setLocale(Locale locale) {
+    public void setLocale(String locale) {
         this.locale = locale;
     }
 
