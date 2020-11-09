@@ -1,6 +1,7 @@
 package com.szabidev.webshop_backend.model;
 
 import javax.persistence.*;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -18,6 +19,9 @@ public class CategoryModel {
     @OneToMany(mappedBy = "fkCategory", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     @MapKey(name = "locale")
     private Map<String, CategoryLocalizedModel> localizations = new HashMap<>();
+
+    @ManyToMany(mappedBy = "categories")
+    private Collection<ProductModel> products;
 
     public CategoryModel() {
     }
@@ -44,5 +48,13 @@ public class CategoryModel {
 
     public void setCode(String code) {
         this.code = code;
+    }
+
+    public Collection<ProductModel> getProducts() {
+        return products;
+    }
+
+    public void setProducts(Collection<ProductModel> products) {
+        this.products = products;
     }
 }

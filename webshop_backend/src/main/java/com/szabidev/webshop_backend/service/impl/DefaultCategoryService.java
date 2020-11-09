@@ -2,11 +2,13 @@ package com.szabidev.webshop_backend.service.impl;
 
 import com.szabidev.webshop_backend.dao.CategoryRepository;
 import com.szabidev.webshop_backend.model.CategoryModel;
+import com.szabidev.webshop_backend.model.ProductModel;
 import com.szabidev.webshop_backend.service.CategoryService;
 import com.szabidev.webshop_backend.service.populator.impl.CategoryPopulator;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -55,5 +57,11 @@ public class DefaultCategoryService implements CategoryService {
         }
         categoryRepository.delete(categoryModel.get());
         return categoryModel;
+    }
+
+    @Override
+    public List<ProductModel> findAllProductForCategory(Long id) {
+        return categoryRepository.findById(id).map(cat -> new ArrayList<>(cat.getProducts()))
+                .orElseGet(ArrayList::new);
     }
 }

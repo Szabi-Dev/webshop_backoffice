@@ -48,4 +48,9 @@ public class CategoryController {
                 .orElse(ResponseEntity.status(HttpStatus.OK).build());
     }
 
+    @GetMapping("/{categoryId}/product")
+    public ResponseEntity<?> findAllProduct(@PathVariable Long categoryId) {
+        return ResponseEntity.ok(categoryFacade.findAllProductsForCategories(categoryId));
+    }
+
 }

@@ -24,21 +24,23 @@ public class CategoryDataAssembler implements RepresentationModelAssembler<Categ
     @Resource(name = "localizationService")
     private LocalizationService localizationService;
 
-    private static final String ALL_CATEGORIES_REL = "roles";
+    private static final String ALL_CATEGORIES_REL = "categories";
     private static final String CREATE_CATEGORY_REL = "create";
+    private static final String PRODUCTS_REL = "product";
 
     @Override
     public CategoryData toModel(CategoryModel entity) {
         CategoryData categoryData = convert(entity);
         populateSelfLink(categoryData);
         populateLinkToAll(categoryData, ALL_CATEGORIES_REL);
+        populateLinkToProducts(categoryData, PRODUCTS_REL);
         return categoryData;
     }
 
     @Override
     public CollectionModel<CategoryData> toCollectionModel(Iterable<? extends CategoryModel> entities) {
         List<CategoryData> categoryDataList = new ArrayList<>();
-        entities.forEach(entity -> categoryDataList.add(this.convert(entity)));
+        entities.forEach(entity -> categoryDataList.add(this.toModel(entity)));
         return CollectionModel.of(categoryDataList,
                 linkTo(methodOn(CategoryController.class).fetchAllCategories()).withSelfRel(),
                 linkTo(methodOn(CategoryController.class).createCategory(null)).withRel(CREATE_CATEGORY_REL));
@@ -62,6 +64,10 @@ public class CategoryDataAssembler implements RepresentationModelAssembler<Categ
 
     private void populateLinkToAll(CategoryData categoryData, String rel){
         categoryData.add(linkTo(methodOn(CategoryController.class).fetchAllCategories()).withRel(rel));
+    }
+
+    private void populateLinkToProducts(CategoryData categoryData, String rel){
+        categoryData.add(linkTo(methodOn(CategoryController.class).findAllProduct(categoryData.getId())).withRel(rel));
     }
 
 

@@ -2,6 +2,7 @@ package com.szabidev.webshop_backend.facade;
 
 import com.szabidev.webshop_backend.controller.dto.CategoryJson;
 import com.szabidev.webshop_backend.facade.dto.CategoryData;
+import com.szabidev.webshop_backend.facade.dto.ProductData;
 import org.springframework.hateoas.CollectionModel;
 
 import java.util.Optional;
@@ -44,4 +45,11 @@ public interface CategoryFacade {
      * @return {@link CollectionModel<CategoryData>}
      */
     CollectionModel<CategoryData> fetchAllCategories();
+
+    /**
+     * Method to fetch all categories for product
+     * @param id - category id
+     * @return {@link CollectionModel<ProductData>}
+     */
+    CollectionModel<ProductData> findAllProductsForCategories(Long id);
 }

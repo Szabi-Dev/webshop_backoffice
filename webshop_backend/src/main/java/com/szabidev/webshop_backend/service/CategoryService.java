@@ -1,6 +1,7 @@
 package com.szabidev.webshop_backend.service;
 
 import com.szabidev.webshop_backend.model.CategoryModel;
+import com.szabidev.webshop_backend.model.ProductModel;
 
 import java.util.List;
 import java.util.Optional;
@@ -44,4 +45,11 @@ public interface CategoryService {
      * @return {@link Optional<CategoryModel>}
      */
     Optional<CategoryModel>  deleteCategory(Long id);
+
+    /**
+     * Find all product for category
+     * @param id - category id
+     * @return {@link List<ProductModel>}
+     */
+    List<ProductModel> findAllProductForCategory(Long id);
 }
