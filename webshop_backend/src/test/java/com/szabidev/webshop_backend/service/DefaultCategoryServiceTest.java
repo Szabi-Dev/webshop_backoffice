@@ -32,11 +32,13 @@ public class DefaultCategoryServiceTest {
 
     private final Long ID = 1L;
     private CategoryModel categoryModel;
+    private String code = "code";
 
     @BeforeEach
     void setUp(){
         categoryModel = new CategoryModel();
         categoryModel.setId(ID);
+        categoryModel.setCode(code);
     }
 
     @Test
@@ -63,10 +65,21 @@ public class DefaultCategoryServiceTest {
     public void createCategory() {
         //given
         when(categoryRepository.save(categoryModel)).thenReturn(categoryModel);
+        when(categoryRepository.findByCode(code)).thenReturn(Optional.empty());
         //when
         service.createCategory(categoryModel);
         //then
         verify(categoryRepository, times(1)).save(categoryModel);
+    }
+
+    @Test
+    public void createCategoryExisting() {
+        //given
+        when(categoryRepository.findByCode(code)).thenReturn(Optional.of(categoryModel));
+        //when
+        service.createCategory(categoryModel);
+        //then
+        verify(categoryRepository, times(0)).save(categoryModel);
     }
 
 

@@ -12,6 +12,9 @@ public class CategoryModel {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @Column(name = "code", unique = true)
+    private String code;
+
     @OneToMany(mappedBy = "fkCategory", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     @MapKey(name = "locale")
     private Map<String, CategoryLocalizedModel> localizations = new HashMap<>();
@@ -33,5 +36,13 @@ public class CategoryModel {
 
     public void setLocalizations(Map<String, CategoryLocalizedModel> localizations) {
         this.localizations = localizations;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 }

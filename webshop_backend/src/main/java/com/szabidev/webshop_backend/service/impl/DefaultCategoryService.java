@@ -31,6 +31,9 @@ public class DefaultCategoryService implements CategoryService {
 
     @Override
     public Optional<CategoryModel> createCategory(CategoryModel categoryModel) {
+        if (categoryRepository.findByCode(categoryModel.getCode()).isPresent()) {
+            return Optional.empty();
+        }
         return Optional.of(categoryRepository.save(categoryModel));
     }
 
