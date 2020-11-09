@@ -21,7 +21,7 @@ public class CategoryPopulator implements Populator<CategoryModel, CategoryModel
         for (Map.Entry<String, CategoryLocalizedModel> localizedModelEntry : source.getLocalizations().entrySet()) {
             if (target.getLocalizations().containsKey(localizedModelEntry.getKey())) {
                 target.getLocalizations().get(localizedModelEntry.getKey()).setLocale(localizedModelEntry.getValue().getLocale());
-                target.getLocalizations().get(localizedModelEntry.getKey()).setCategoryName(localizedModelEntry.getValue().getCategoryName());
+                if (localizedModelEntry.getValue().getCategoryName() != null) target.getLocalizations().get(localizedModelEntry.getKey()).setCategoryName(localizedModelEntry.getValue().getCategoryName());
             } else {
                 localizedModelEntry.getValue().setFkCategory(target);
                 target.getLocalizations().put(localizedModelEntry.getKey(), localizedModelEntry.getValue());
