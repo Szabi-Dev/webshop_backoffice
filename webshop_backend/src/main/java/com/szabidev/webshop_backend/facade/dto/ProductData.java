@@ -9,6 +9,8 @@ public class ProductData extends RepresentationModel<ProductData> {
     private String name;
     private String description;
 
+    private PriceData oneTimePrice;
+
     public Long getId() {
         return id;
     }
@@ -39,5 +41,13 @@ public class ProductData extends RepresentationModel<ProductData> {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public PriceData getOneTimePrice() {
+        return oneTimePrice;
+    }
+
+    public void setOneTimePrice(PriceData oneTimePrice) {
+        this.oneTimePrice = oneTimePrice;
     }
 }

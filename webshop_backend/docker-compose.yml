@@ -1,18 +1,6 @@
 version: '3'
 services:
 
-  webshop_backend:
-    build: .
-    env_file:
-      - .env
-    environment:
-      MYSQL_DATABASE: ${MYSQL_DATABASE}
-      MYSQL_USER: ${MYSQL_USER}
-      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
-    ports:
-      - "8080:8080"
-    depends_on:
-      - mysql
 
   mysql:
     image: mysql

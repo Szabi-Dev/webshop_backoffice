@@ -9,20 +9,26 @@ import com.szabidev.webshop_backend.model.ProductModel;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
 import java.util.HashMap;
 import java.util.Map;
 
 @Component("productJsonConverter")
 public class ProductJsonConverter implements Converter<ProductJson, ProductModel> {
 
+    @Resource( name = "priceJsonConverter")
+    private PriceJsonConverter priceJsonConverter;
 
     @Override
     public ProductModel convert(ProductJson source) {
         ProductModel productModel = new ProductModel();
         productModel.setCode(source.getCode());
         productModel.setLocalizations(new HashMap<>());
-        populateName(source, productModel);
-        populateDescription(source, productModel);
+
+        productModel.setOneTimePrice(priceJsonConverter.convert(source.getOneTimePrice()));
+
+        if (source.getName()!= null) populateName(source, productModel);
+        if (source.getDescription() != null) populateDescription(source, productModel);
         return productModel;
     }
 

@@ -6,6 +6,7 @@ public class ProductJson {
     private String code;
     private Map<String, String> name;
     private Map<String, String> description;
+    private PriceJson oneTimePrice;
 
     public ProductJson() {
     }
@@ -32,5 +33,13 @@ public class ProductJson {
 
     public void setDescription(Map<String, String> description) {
         this.description = description;
+    }
+
+    public PriceJson getOneTimePrice() {
+        return oneTimePrice;
+    }
+
+    public void setOneTimePrice(PriceJson oneTimePrice) {
+        this.oneTimePrice = oneTimePrice;
     }
 }

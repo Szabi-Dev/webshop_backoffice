@@ -23,6 +23,9 @@ public class ProductDataAssembler implements RepresentationModelAssembler<Produc
     @Resource(name = "localizationService")
     private LocalizationService localizationService;
 
+    @Resource(name = "priceDataAssembler")
+    private PriceDataAssembler priceDataAssembler;
+
     private static final String ALL_PRODUCTS_REL = "products";
     private static final String CREATE_PRODUCT_REL = "create";
     private static final String CATEGORIES = "categories";
@@ -51,6 +54,7 @@ public class ProductDataAssembler implements RepresentationModelAssembler<Produc
         String lang = localizationService.getLocalization();
         productData.setId(productModel.getId());
         productData.setCode(productModel.getCode());
+        productData.setOneTimePrice(priceDataAssembler.toModel(productModel.getOneTimePrice()));
         if (productModel.getLocalizations().get(lang) == null){
             return productData;
         }

@@ -19,6 +19,10 @@ public class ProductModel {
     @MapKey(name = "locale")
     Map<String, ProductLocalizedModel> localizations;
 
+    @OneToOne (cascade = CascadeType.ALL)
+    @JoinColumn(name = "price_id", referencedColumnName = "id")
+    private PriceModel oneTimePrice;
+
     @ManyToMany
     @JoinTable(name = "product_categories",
             joinColumns = @JoinColumn(name = "product_id", referencedColumnName = "id"),
@@ -72,5 +76,13 @@ public class ProductModel {
 
     public void setDeliveryModes(Collection<DeliveryModeModel> deliveryModes) {
         this.deliveryModes = deliveryModes;
+    }
+
+    public PriceModel getOneTimePrice() {
+        return oneTimePrice;
+    }
+
+    public void setOneTimePrice(PriceModel oneTimePrice) {
+        this.oneTimePrice = oneTimePrice;
     }
 }
