@@ -1,10 +1,7 @@
 package com.szabidev.webshop_backend.facade.assembler;
 
 import com.szabidev.webshop_backend.controller.CategoryController;
-import com.szabidev.webshop_backend.controller.PrivilegeController;
-import com.szabidev.webshop_backend.controller.RoleController;
 import com.szabidev.webshop_backend.facade.dto.CategoryData;
-import com.szabidev.webshop_backend.facade.dto.RoleData;
 import com.szabidev.webshop_backend.model.CategoryModel;
 import com.szabidev.webshop_backend.service.LocalizationService;
 import org.springframework.hateoas.CollectionModel;
@@ -50,6 +47,8 @@ public class CategoryDataAssembler implements RepresentationModelAssembler<Categ
         CategoryData categoryData = new CategoryData();
         String lang = localizationService.getLocalization();
         categoryData.setId(categoryModel.getId());
+        categoryData.setCode(categoryModel.getCode());
+
         if (categoryModel.getLocalizations().get(lang) == null){
             return categoryData;
         }

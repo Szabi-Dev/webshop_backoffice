@@ -16,8 +16,9 @@ public class CategoryJsonConverter implements Converter<CategoryJson, CategoryMo
     @Override
     public CategoryModel convert(CategoryJson source) {
         CategoryModel categoryModel = new CategoryModel();
+        categoryModel.setCode(source.getCode());
         categoryModel.setLocalizations(new HashMap<>());
-        populateCategoryName(source, categoryModel);
+        if (source.getName() != null) populateCategoryName(source, categoryModel);
         return categoryModel;
     }
 

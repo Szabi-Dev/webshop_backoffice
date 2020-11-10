@@ -13,11 +13,12 @@ public class CategoryPopulator implements Populator<CategoryModel, CategoryModel
 
     @Override
     public void populatePut(CategoryModel target, CategoryModel source) {
-       target.setLocalizations(source.getLocalizations());
+        target.setLocalizations(source.getLocalizations());
     }
 
     @Override
     public void populatePatch(CategoryModel target, CategoryModel source) {
+        target.setCode(source.getCode());
         for (Map.Entry<String, CategoryLocalizedModel> localizedModelEntry : source.getLocalizations().entrySet()) {
             if (target.getLocalizations().containsKey(localizedModelEntry.getKey())) {
                 target.getLocalizations().get(localizedModelEntry.getKey()).setLocale(localizedModelEntry.getValue().getLocale());

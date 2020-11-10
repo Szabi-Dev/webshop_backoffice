@@ -4,7 +4,8 @@ import java.util.Map;
 
 public class CategoryJson {
 
-    Map<String, String> name;
+    private String code;
+    private Map<String, String> name;
 
     public CategoryJson() {
     }
@@ -15,5 +16,13 @@ public class CategoryJson {
 
     public void setName(Map<String, String> name) {
         this.name = name;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 }
