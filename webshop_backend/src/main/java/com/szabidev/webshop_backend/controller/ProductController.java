@@ -15,19 +15,19 @@ public class ProductController {
     private ProductFacade productFacade;
 
     @GetMapping
-    public ResponseEntity<?> findAllProducts(){
-        return ResponseEntity.ok( productFacade.findAllProducts());
+    public ResponseEntity<?> findAllProducts() {
+        return ResponseEntity.ok(productFacade.findAllProducts());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> getProductById(@PathVariable Long id){
+    public ResponseEntity<?> getProductById(@PathVariable Long id) {
         return productFacade.getProductById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.ok().build());
     }
 
     @PostMapping
-    public ResponseEntity<?> createProduct(@RequestBody ProductJson productJson){
+    public ResponseEntity<?> createProduct(@RequestBody ProductJson productJson) {
         return productFacade.createProduct(productJson)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.ok().build());
@@ -42,13 +42,13 @@ public class ProductController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteProduct(@PathVariable Long id) {
-        return productFacade.deleteProduct( id)
+        return productFacade.deleteProduct(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.ok().build());
     }
 
     @GetMapping("/{productId}/category")
-    public ResponseEntity<?> getAllCategories(@PathVariable Long productId){
+    public ResponseEntity<?> getAllCategories(@PathVariable Long productId) {
         return ResponseEntity.ok(productFacade.findAllCategoriesForProduct(productId));
     }
 
@@ -65,4 +65,24 @@ public class ProductController {
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.ok().build());
     }
+
+    @GetMapping("/{productId}/delivery")
+    public ResponseEntity<?> getDeliveryModesForProduct(@PathVariable Long productId) {
+        return ResponseEntity.ok(productFacade.findAllDeliveryModesForProduct(productId));
+    }
+
+    @PatchMapping("/{productId}/delivery/{deliveryId}")
+    public ResponseEntity<?> addDeliveryModeToProduct(@PathVariable Long productId, @PathVariable Long deliveryId) {
+        return productFacade.addDeliveryModeToProduct(productId, deliveryId)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.ok().build());
+    }
+
+    @DeleteMapping("/{productId}/delivery/{deliveryId}")
+    public ResponseEntity<?> removeDeliveryModeFromProduct(@PathVariable Long productId, @PathVariable Long deliveryId) {
+        return productFacade.removeDeliveryModeFromProduct(productId, deliveryId)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.ok().build());
+    }
+
 }

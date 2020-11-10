@@ -3,19 +3,22 @@ package com.szabidev.webshop_backend.facade.impl;
 import com.szabidev.webshop_backend.controller.dto.ProductJson;
 import com.szabidev.webshop_backend.facade.ProductFacade;
 import com.szabidev.webshop_backend.facade.assembler.CategoryDataAssembler;
+import com.szabidev.webshop_backend.facade.assembler.DeliveryModeDataAssembler;
 import com.szabidev.webshop_backend.facade.assembler.ProductDataAssembler;
 import com.szabidev.webshop_backend.facade.converter.ProductJsonConverter;
 import com.szabidev.webshop_backend.facade.dto.CategoryData;
+import com.szabidev.webshop_backend.facade.dto.DeliveryModeData;
 import com.szabidev.webshop_backend.facade.dto.ProductData;
 import com.szabidev.webshop_backend.model.CategoryModel;
+import com.szabidev.webshop_backend.model.DeliveryModeModel;
 import com.szabidev.webshop_backend.model.ProductModel;
 import com.szabidev.webshop_backend.service.CategoryService;
+import com.szabidev.webshop_backend.service.DeliveryModeService;
 import com.szabidev.webshop_backend.service.ProductService;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
-import java.util.List;
 import java.util.Optional;
 
 @Component("productFacade")
@@ -27,6 +30,9 @@ public class DefaultProductFacade implements ProductFacade {
     @Resource(name = "categoryService")
     private CategoryService categoryService;
 
+    @Resource(name = "deliveryModeService")
+    private DeliveryModeService deliveryModeService;
+
     @Resource(name = "productDataAssembler")
     private ProductDataAssembler productDataAssembler;
 
@@ -35,6 +41,9 @@ public class DefaultProductFacade implements ProductFacade {
 
     @Resource(name = "categoryDataAssembler")
     private CategoryDataAssembler categoryDataassembler;
+
+    @Resource(name = "deliveryModeAssembler")
+    private DeliveryModeDataAssembler deliveryModeDataAssembler;
 
     @Override
     public CollectionModel<ProductData> findAllProducts() {
@@ -80,5 +89,22 @@ public class DefaultProductFacade implements ProductFacade {
         Optional<CategoryModel> categoryModel = categoryService.getCategoryById(categoryId);
         return categoryModel.flatMap(model -> productService.removeCategoryFromProduct(productId, model).map(productDataAssembler::toModel));
 
+    }
+
+    @Override
+    public CollectionModel<DeliveryModeData> findAllDeliveryModesForProduct(Long id) {
+        return deliveryModeDataAssembler.toCollectionModel(productService.findAllDeliveryModesForProduct(id));
+    }
+
+    @Override
+    public Optional<ProductData> addDeliveryModeToProduct(Long productId, Long deliveryId) {
+        Optional<DeliveryModeModel> deliveryModeModel = deliveryModeService.getDeliveryModeById(deliveryId);
+        return deliveryModeModel.flatMap(model -> productService.addDeliveryModeToProduct(productId, model)).map(productDataAssembler::toModel);
+    }
+
+    @Override
+    public Optional<ProductData> removeDeliveryModeFromProduct(Long productId, Long deliveryId) {
+        Optional<DeliveryModeModel> deliveryModeModel = deliveryModeService.getDeliveryModeById(deliveryId);
+        return deliveryModeModel.flatMap(model -> productService.removeDeliveryModeFromProduct(productId, model)).map(productDataAssembler::toModel);
     }
 }

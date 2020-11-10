@@ -2,6 +2,7 @@ package com.szabidev.webshop_backend.facade;
 
 import com.szabidev.webshop_backend.controller.dto.ProductJson;
 import com.szabidev.webshop_backend.facade.dto.CategoryData;
+import com.szabidev.webshop_backend.facade.dto.DeliveryModeData;
 import com.szabidev.webshop_backend.facade.dto.ProductData;
 import org.springframework.hateoas.CollectionModel;
 
@@ -74,4 +75,28 @@ public interface ProductFacade {
      * @return {@link Optional<ProductData>}
      */
     Optional<ProductData> removeCategoryFromProduct(Long productId, Long categoryId);
+
+    /**
+     * Method to find all deliveryModes for product
+     * @param id - product id
+     * @return {@link CollectionModel<DeliveryModeData>}
+     */
+    CollectionModel<DeliveryModeData> findAllDeliveryModesForProduct(Long id);
+
+    /**
+     * Method to add delivery mode to product
+     * @param productId - product id
+     * @param deliveryId - delivery mode id
+     * @return {@link Optional<ProductData>}
+     */
+    Optional<ProductData> addDeliveryModeToProduct(Long productId, Long deliveryId);
+
+    /**
+     * Method to remove delivery mode from product
+     * @param productId - product id
+     * @param deliveryId - delivery id
+     * @return {@link Optional<ProductData>}
+     */
+    Optional<ProductData> removeDeliveryModeFromProduct(Long productId, Long deliveryId);
+
 }

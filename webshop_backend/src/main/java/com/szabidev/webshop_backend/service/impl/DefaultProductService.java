@@ -2,6 +2,7 @@ package com.szabidev.webshop_backend.service.impl;
 
 import com.szabidev.webshop_backend.dao.ProductRepository;
 import com.szabidev.webshop_backend.model.CategoryModel;
+import com.szabidev.webshop_backend.model.DeliveryModeModel;
 import com.szabidev.webshop_backend.model.ProductModel;
 import com.szabidev.webshop_backend.service.ProductService;
 import com.szabidev.webshop_backend.service.populator.impl.ProductPopulator;
@@ -92,6 +93,41 @@ public class DefaultProductService implements ProductService {
             return Optional.empty();
         }
         product.getCategories().remove(categoryModel);
+        return Optional.of(productRepository.save(product));
+    }
+
+    @Override
+    public List<DeliveryModeModel> findAllDeliveryModesForProduct(Long id) {
+        Optional<ProductModel> productModel = productRepository.findById(id);
+        return productModel.map(product -> new ArrayList<>(product.getDeliveryModes()))
+                .orElseGet(ArrayList::new);
+    }
+
+    @Override
+    public Optional<ProductModel> addDeliveryModeToProduct(Long id, DeliveryModeModel deliveryModeModel) {
+        Optional<ProductModel> productModel = productRepository.findById(id);
+        if (!productModel.isPresent()){
+            return Optional.empty();
+        }
+        ProductModel product = productModel.get();
+        if (product.getDeliveryModes().contains(deliveryModeModel)) {
+            return Optional.empty();
+        }
+        product.getDeliveryModes().add(deliveryModeModel);
+        return Optional.of(productRepository.save(product));
+    }
+
+    @Override
+    public Optional<ProductModel> removeDeliveryModeFromProduct(Long id, DeliveryModeModel deliveryModeModel) {
+        Optional<ProductModel> productModel = productRepository.findById(id);
+        if (!productModel.isPresent()){
+            return Optional.empty();
+        }
+        ProductModel product = productModel.get();
+        if (!product.getDeliveryModes().contains(deliveryModeModel)) {
+            return Optional.empty();
+        }
+        product.getDeliveryModes().remove(deliveryModeModel);
         return Optional.of(productRepository.save(product));
     }
 
