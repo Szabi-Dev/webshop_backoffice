@@ -15,6 +15,10 @@ public class ProductModel {
     @Column(name = "code", unique = true)
     private String code;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "main_image_id", referencedColumnName = "id")
+    private MediaModel mainImage;
+
     @OneToMany(mappedBy = "fkProduct", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     @MapKey(name = "locale")
     Map<String, ProductLocalizedModel> localizations;
