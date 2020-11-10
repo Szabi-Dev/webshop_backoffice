@@ -1,5 +1,6 @@
 package com.szabidev.webshop_backend.service.populator.impl;
 
+import com.szabidev.webshop_backend.model.MediaModel;
 import com.szabidev.webshop_backend.model.PriceModel;
 import com.szabidev.webshop_backend.model.ProductLocalizedModel;
 import com.szabidev.webshop_backend.model.ProductModel;
@@ -15,6 +16,9 @@ public class ProductPopulator implements Populator<ProductModel, ProductModel> {
     @Resource(name = "pricePopulator")
     private PricePopulator pricePopulator;
 
+    @Resource(name = "mediaPopulator")
+    private MediaPopulator mediaPopulator;
+
     @Override
     public void populatePut(ProductModel target, ProductModel source) {
 
@@ -25,10 +29,21 @@ public class ProductPopulator implements Populator<ProductModel, ProductModel> {
         if (source.getCode()!= null) target.setCode(source.getCode());
 
         populatePrice(target, source);
+        populateMainImage(target, source);
 
         for (Map.Entry<String, ProductLocalizedModel> localizedModelEntry : source.getLocalizations().entrySet()) {
             populateLocalizedEntries(target, localizedModelEntry);
         }
+    }
+
+    private void populateMainImage(ProductModel target, ProductModel source) {
+        if (source.getMainImage() == null) {
+            return;
+        }
+        if (target.getMainImage() == null) {
+            target.setMainImage(new MediaModel());
+        }
+        mediaPopulator.populatePatch(target.getMainImage(), source.getMainImage());
     }
 
     private void populatePrice(ProductModel target, ProductModel source) {

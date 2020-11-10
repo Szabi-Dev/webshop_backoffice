@@ -1,6 +1,7 @@
 package com.szabidev.webshop_backend.model;
 
 import javax.persistence.*;
+import java.util.HashMap;
 import java.util.Map;
 
 @Entity
@@ -13,7 +14,7 @@ public class MediaModel {
 
     @OneToMany(mappedBy = "fkMediaModel", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     @MapKey(name = "locale")
-    private Map<String, MediaLocalizedModel> localizations;
+    private Map<String, MediaLocalizedModel> localizations = new HashMap<>();
 
     @Column(name = "relativePath")
     private String relativePath;

@@ -89,4 +89,12 @@ public class ProductModel {
     public void setOneTimePrice(PriceModel oneTimePrice) {
         this.oneTimePrice = oneTimePrice;
     }
+
+    public MediaModel getMainImage() {
+        return mainImage;
+    }
+
+    public void setMainImage(MediaModel mainImage) {
+        this.mainImage = mainImage;
+    }
 }
