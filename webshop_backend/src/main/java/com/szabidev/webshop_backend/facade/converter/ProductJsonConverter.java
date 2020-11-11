@@ -19,6 +19,9 @@ public class ProductJsonConverter implements Converter<ProductJson, ProductModel
     @Resource( name = "priceJsonConverter")
     private PriceJsonConverter priceJsonConverter;
 
+    @Resource( name = "mediaJsonConverter")
+    private MediaJsonConverter mediaJsonConverter;
+
     @Override
     public ProductModel convert(ProductJson source) {
         ProductModel productModel = new ProductModel();
@@ -26,6 +29,7 @@ public class ProductJsonConverter implements Converter<ProductJson, ProductModel
         productModel.setLocalizations(new HashMap<>());
 
         productModel.setOneTimePrice(priceJsonConverter.convert(source.getOneTimePrice()));
+        productModel.setMainImage(mediaJsonConverter.convert(source.getMainImage()));
 
         if (source.getName()!= null) populateName(source, productModel);
         if (source.getDescription() != null) populateDescription(source, productModel);

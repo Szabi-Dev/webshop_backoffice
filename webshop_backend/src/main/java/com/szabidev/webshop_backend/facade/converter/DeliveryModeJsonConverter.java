@@ -17,7 +17,7 @@ public class DeliveryModeJsonConverter implements Converter<DeliveryModeJson, De
         DeliveryModeModel deliveryModeModel = new DeliveryModeModel();
         deliveryModeModel.setCode(source.getCode());
         deliveryModeModel.setLocalizations(new HashMap<>());
-        populateDeliveryModeName(source, deliveryModeModel);
+        if (source.getName() != null) populateDeliveryModeName(source, deliveryModeModel);
         return deliveryModeModel;
     }
 

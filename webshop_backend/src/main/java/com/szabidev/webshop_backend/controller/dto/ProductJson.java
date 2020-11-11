@@ -7,6 +7,7 @@ public class ProductJson {
     private Map<String, String> name;
     private Map<String, String> description;
     private PriceJson oneTimePrice;
+    private MediaJson mainImage;
 
     public ProductJson() {
     }
@@ -41,5 +42,13 @@ public class ProductJson {
 
     public void setOneTimePrice(PriceJson oneTimePrice) {
         this.oneTimePrice = oneTimePrice;
+    }
+
+    public MediaJson getMainImage() {
+        return mainImage;
+    }
+
+    public void setMainImage(MediaJson mainImage) {
+        this.mainImage = mainImage;
     }
 }

@@ -1,9 +1,8 @@
 package com.szabidev.webshop_backend.facade.assembler;
 
-import com.szabidev.webshop_backend.controller.CategoryController;
 import com.szabidev.webshop_backend.controller.ProductController;
-import com.szabidev.webshop_backend.facade.dto.CategoryData;
 import com.szabidev.webshop_backend.facade.dto.ProductData;
+import com.szabidev.webshop_backend.model.ProductLocalizedModel;
 import com.szabidev.webshop_backend.model.ProductModel;
 import com.szabidev.webshop_backend.service.LocalizationService;
 import org.springframework.hateoas.CollectionModel;
@@ -25,6 +24,9 @@ public class ProductDataAssembler implements RepresentationModelAssembler<Produc
 
     @Resource(name = "priceDataAssembler")
     private PriceDataAssembler priceDataAssembler;
+
+    @Resource(name = "mediaDataAssembler")
+    private MediaDataAssembler mediaDataAssembler;
 
     private static final String ALL_PRODUCTS_REL = "products";
     private static final String CREATE_PRODUCT_REL = "create";
@@ -54,12 +56,17 @@ public class ProductDataAssembler implements RepresentationModelAssembler<Produc
         String lang = localizationService.getLocalization();
         productData.setId(productModel.getId());
         productData.setCode(productModel.getCode());
+
         productData.setOneTimePrice(priceDataAssembler.toModel(productModel.getOneTimePrice()));
+        productData.setMainImage(mediaDataAssembler.toModel(productModel.getMainImage()));
+
         if (productModel.getLocalizations().get(lang) == null){
             return productData;
         }
-        productData.setName(productModel.getLocalizations().get(lang).getName());
-        productData.setDescription(productModel.getLocalizations().get(lang).getDescription());
+        ProductLocalizedModel localizedModel = productModel.getLocalizations().get(lang);
+
+        productData.setName(localizedModel.getName());
+        productData.setDescription(localizedModel.getDescription());
         return productData;
     }
 

@@ -8,7 +8,7 @@ public class MediaLocalizedModel {
 
     @Id
     @GeneratedValue
-    private String Id;
+    private Long Id;
 
     @Column(name = "locale")
     private String locale;
@@ -25,11 +25,11 @@ public class MediaLocalizedModel {
     public MediaLocalizedModel() {
     }
 
-    public String getId() {
+    public Long getId() {
         return Id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         Id = id;
     }
 

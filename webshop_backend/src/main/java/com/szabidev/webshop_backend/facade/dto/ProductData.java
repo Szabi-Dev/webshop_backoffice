@@ -10,6 +10,7 @@ public class ProductData extends RepresentationModel<ProductData> {
     private String description;
 
     private PriceData oneTimePrice;
+    private MediaData mainImage;
 
     public Long getId() {
         return id;
@@ -49,5 +50,13 @@ public class ProductData extends RepresentationModel<ProductData> {
 
     public void setOneTimePrice(PriceData oneTimePrice) {
         this.oneTimePrice = oneTimePrice;
+    }
+
+    public MediaData getMainImage() {
+        return mainImage;
+    }
+
+    public void setMainImage(MediaData mainImage) {
+        this.mainImage = mainImage;
     }
 }

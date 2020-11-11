@@ -11,6 +11,9 @@ public class PriceJsonConverter implements Converter<PriceJson, PriceModel> {
     @Override
     public PriceModel convert(PriceJson source) {
         PriceModel priceModel = new PriceModel();
+        if (source == null ) {
+            return priceModel;
+        }
         priceModel.setValue(source.getValue());
         priceModel.setCurrency(source.getCurrency());
         return priceModel;
