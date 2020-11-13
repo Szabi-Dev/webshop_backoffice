@@ -34,7 +34,7 @@ export default function UserPage(){
     }
 
     const addModaltabs = [
-      {id: 'general', displayName: "General", index: 0, content:  <UserAddGeneralTab handleAddChange={handleAddChange} /> },
+      {id: 'general', displayName: "General", index: 0, content:  <UserAddGeneralTab handleAddChange={handleAddChange} currentItem={newUser} /> },
       {id: 'roles', displayName: "Roles", index: 1, content:  <UserRolesTab/> }
     ]
 
@@ -48,6 +48,7 @@ export default function UserPage(){
 
     const closeModal = () => {
         setIsOpen(false)
+        setNewUser({})
         fetchData()
     }
 
