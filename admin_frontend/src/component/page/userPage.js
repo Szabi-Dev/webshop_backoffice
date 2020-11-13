@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import {RestCaller} from '../../services/util/restCaller';
 import {USER_URI} from '../../services/util/constants'
-import {UserAddGeneralTab} from '../dataTable/form/userAddForm'
+import {UserAddGeneralTab, UserRolesTab} from '../dataTable/form/userAddForm'
 import SearchBar from '../dataTable/common/searchBar' 
 import AddModal from '../dataTable/modal/addModal'
 import BasicTable from '../dataTable/common/table'
@@ -28,12 +28,14 @@ export default function UserPage(){
     const [newUser, setNewUser] = React.useState({})
     
     const handleAddChange = (event) =>{
+        newUser.requests = []
         newUser[event.target.name] = event.target.value
         setNewUser(newUser)
     }
 
     const addModaltabs = [
-      {id: 'general', displayName: "General", index: 0, content:  <UserAddGeneralTab handleAddChange={handleAddChange} /> }
+      {id: 'general', displayName: "General", index: 0, content:  <UserAddGeneralTab handleAddChange={handleAddChange} /> },
+      {id: 'roles', displayName: "Roles", index: 1, content:  <UserRolesTab/> }
     ]
 
     const editModaltabs = [
