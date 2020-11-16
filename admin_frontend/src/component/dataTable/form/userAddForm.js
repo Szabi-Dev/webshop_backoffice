@@ -1,14 +1,10 @@
 import React from 'react';
 
 import TextField from '@material-ui/core/TextField';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
 
-import ListItemText from '@material-ui/core/ListItemText';
-import Autocomplete from '@material-ui/lab/Autocomplete';
-import Button from '@material-ui/core/Button';
 import { RestCaller } from '../../../services/util/restCaller';
 import { ROLE_URI } from '../../../services/util/constants';
+import FormManyToMany from './common/autocomplete';
 
 const UserAddGeneralTab = (props) =>{
 
@@ -25,22 +21,22 @@ const UserAddGeneralTab = (props) =>{
 
 const UserRolesTab  = (props) => {
   const [alldataList, setAllDataList] = React.useState([])
-  const [newDataSet, setNewDataSet] = React.useState([])
-  const [value, setValue] = React.useState([])
 
-  const handleRemove = ( data) => {
-    newDataSet.pop(data)
-    setNewDataSet([...newDataSet])
+  const createRoleRequest = (data, method) =>{
+      return {
+        method : method,
+        url : "/{id}/role/" + data["id"] 
+      }
   }
 
-  const onChange = (event, newValue) => {
-    if (newDataSet.includes(newValue) || newValue === undefined || newValue == null) {
-      return;
-    }
-    setValue(newValue);
+  const createRequests = (data, method) => {
+      let req = createRoleRequest(data, method)
+      props.addRequest(req); 
+  }
 
-    newDataSet.push(newValue)
-    setNewDataSet(newDataSet)
+  const populateNewDataset = (newDataset) => {
+        let data = { "roles" : newDataset }
+        props.handleComplexObject(data)
   }
 
   async function fetchData() {
@@ -59,19 +55,7 @@ const UserRolesTab  = (props) => {
   React.useEffect (() => { fetchData() }, [])
   
   return (
-      <div>
-        <Autocomplete id="combo-box" options={alldataList} getOptionLabel={(option) => option["name"]} renderInput={(params) => <TextField {...params} label="Combo box" variant="outlined" />}  value={value} onChange={ onChange}/>
-        <List>
-          {newDataSet.map( (data, i) => (
-            <ListItem>
-              <ListItemText primary={data.name} key={data}/>
-              <Button onClick={() => handleRemove(data)}> - </Button>
-            </ListItem>
-          ) 
-          )}
-          
-        </List>
-      </div>
+      <FormManyToMany alldataList={alldataList} optionLabel="name" createRequests={createRequests} populateNewDataset={populateNewDataset}  currentDataSet={ props.currentItem.hasOwnProperty('roles') ? props.currentItem.roles : []  } />
     )
 }
 
