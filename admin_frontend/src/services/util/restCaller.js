@@ -34,7 +34,7 @@ export const RestCaller = () => {
             console.log(response)
             return 
         }
-
+        console.log(response)
         return await response.json();
     }
 

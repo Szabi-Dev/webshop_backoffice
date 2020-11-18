@@ -16,7 +16,7 @@ const columns = [
   ];
   
 
-const filterBy= ["lastName", "firstName", "id", "age"]
+const filterBy= ["lastName", "firstName", "id", "email"]
 
 export default function UserPage(){
     const [rowList, setRowList] = React.useState([]);
@@ -30,22 +30,21 @@ export default function UserPage(){
         setNewUser(newUser)
     }
 
-    const handleRequest = (request) => {
+    const handleRequests = (requests) => {
         if (!newUser.hasOwnProperty('requests')) {
-            newUser.requests = []
+            newUser.requests = {}
         }
-        newUser.requests.push(request)
+        Object.assign( newUser.requests, requests )
         console.log(newUser)
     }
 
     const handleComplexObjectList = (objectList) => {
         Object.assign(newUser, objectList )
-        console.log(newUser)
     }
 
     const addModaltabs = [
       {id: 'general', displayName: "General", index: 0, content:  <UserAddGeneralTab handleAddChange={handleAddChange} currentItem={newUser} /> },
-      {id: 'roles', displayName: "Roles", index: 1, content:  <UserRolesTab addRequest={handleRequest} currentItem={newUser} handleComplexObject={handleComplexObjectList}  /> }
+      {id: 'roles', displayName: "Roles", index: 1, content:  <UserRolesTab addRequest={handleRequests} currentItem={newUser} handleComplexObject={handleComplexObjectList}  /> }
     ]
 
     const editModaltabs = [

@@ -6,7 +6,7 @@ import Button from '@material-ui/core/Button';
 import {RestCaller} from '../../services/util/restCaller';
 
 
-import { RoleAddGeneralTab } from '../dataTable/form/roleAddForm';
+import { RoleAddGeneralTab, RoleAddPrivilegeTab } from '../dataTable/form/roleAddForm';
 import { RoleEditGeneralTab } from '../dataTable/form/roleEditForm';
 import {ROLE_URI} from '../../services/util/constants'
 
@@ -31,8 +31,20 @@ export default function RolePage(){
         setNewRole(newRole)
     }
 
+    const handleRequests = (requests) => {
+        if (!newRole.hasOwnProperty('requests')) {
+            newRole.requests = {}
+        }
+        Object.assign( newRole.requests, requests )
+    }
+
+    const handleComplexObjectList = (objectList) => {
+        Object.assign(newRole, objectList )
+    }
+
     const addModaltabs = [
-      {id: 'general', displayName: "General", index: 0, content:  <RoleAddGeneralTab handleAddChange={handleAddChange} /> }
+      {id: 'general', displayName: "General", index: 0, content:  <RoleAddGeneralTab handleAddChange={handleAddChange} /> },
+      {id: 'roles', displayName: "Privileges", index: 1, content:  <RoleAddPrivilegeTab addRequest={handleRequests} currentItem={newRole} handleComplexObject={handleComplexObjectList}  /> }
     ]
 
     const editModaltabs = [

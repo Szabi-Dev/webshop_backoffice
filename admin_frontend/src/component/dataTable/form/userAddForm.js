@@ -3,8 +3,9 @@ import React from 'react';
 import TextField from '@material-ui/core/TextField';
 
 import { RestCaller } from '../../../services/util/restCaller';
-import { ROLE_URI } from '../../../services/util/constants';
+import { ROLE_URI, USER_ROLE_URI } from '../../../services/util/constants';
 import FormManyToMany from './common/autocomplete';
+import { CompexObjectRequestHandler } from '../../../services/ComplexObjectRequestHandler';
 
 const UserAddGeneralTab = (props) =>{
 
@@ -22,21 +23,13 @@ const UserAddGeneralTab = (props) =>{
 const UserRolesTab  = (props) => {
   const [alldataList, setAllDataList] = React.useState([])
 
-  const createRoleRequest = (data, method) =>{
-      return {
-        method : method,
-        url : "/{id}/role/" + data["id"] 
-      }
-  }
-
-  const createRequests = (data, method) => {
-      let req = createRoleRequest(data, method)
-      props.addRequest(req); 
-  }
-
+  
   const populateNewDataset = (newDataset) => {
         let data = { "roles" : newDataset }
+        let requests = CompexObjectRequestHandler().getRequests(newDataset, [], USER_ROLE_URI, "{roleId}")
+        props.addRequest({"role" : requests})
         props.handleComplexObject(data)
+
   }
 
   async function fetchData() {
@@ -55,7 +48,7 @@ const UserRolesTab  = (props) => {
   React.useEffect (() => { fetchData() }, [])
   
   return (
-      <FormManyToMany alldataList={alldataList} optionLabel="name" createRequests={createRequests} populateNewDataset={populateNewDataset}  currentDataSet={ props.currentItem.hasOwnProperty('roles') ? props.currentItem.roles : []  } />
+      <FormManyToMany alldataList={alldataList} optionLabel="name" populateNewDataset={populateNewDataset}  currentDataSet={ props.currentItem.hasOwnProperty('roles') ? props.currentItem.roles : []  } />
     )
 }
 

@@ -17,7 +17,6 @@ export default function FormManyToMany(props){
     const handleRemove = ( data) => {
         newDataSet.pop(data)
         setNewDataSet([...newDataSet])
-        props.createRequests(data, 'DELETE')
         props.populateNewDataset(newDataSet)
       }
     
@@ -31,7 +30,6 @@ export default function FormManyToMany(props){
         }
         newDataSet.push(data)
         setNewDataSet([...newDataSet])
-        props.createRequests(data, 'PATCH')
         props.populateNewDataset(newDataSet)
     }
     
