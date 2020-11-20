@@ -14,8 +14,8 @@ export default function FormManyToMany(props){
     const [value, setValue] = React.useState({})
   
 
-    const handleRemove = ( data) => {
-        newDataSet.pop(data)
+    const handleRemove = ( sequence) => {
+        newDataSet.splice(sequence, 1)
         setNewDataSet([...newDataSet])
         props.populateNewDataset(newDataSet)
       }
@@ -42,8 +42,8 @@ export default function FormManyToMany(props){
             <List>
                 {newDataSet.map( (data, i) => (
                 <ListItem>
-                    <ListItemText primary={data.name} key={data}/>
-                    <Button onClick={() => handleRemove(data)}> - </Button>
+                    <ListItemText primary={data.name} key={data.id}/>
+                    <Button onClick={() => handleRemove(i)}> - </Button>
                 </ListItem>
                     ) 
                 )}
