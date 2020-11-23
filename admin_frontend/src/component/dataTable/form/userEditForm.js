@@ -28,9 +28,11 @@ const UserEditRolesTab  = (props) => {
         let requests = CompexObjectRequestHandler().getRequests(newDataset, initialRoles, USER_ROLE_URI, "{roleId}")
         Object.assign(currentItem, { "roles" : newDataset}  )
         Object.assign(currentItem, {"requests" : requests})
-        console.log(currentItem)
+
         setCurrentItem(currentItem)
         setCurrentRoles([...newDataset])
+        props.addRequest({"role" : requests})
+        props.handleComplexObject({ "roles" : newDataset})
     }
 
     async function fetchAllData() {
@@ -59,7 +61,7 @@ const UserEditRolesTab  = (props) => {
     React.useEffect (() => { fetchRolesForCurrentItem() }, [])
     
     return (
-        <FormManyToMany alldataList={alldataList} optionLabel="name" populateNewDataset={populateNewDataset}  currentDataSet={currentRoles } />
+        <FormManyToMany alldataList={alldataList} optionLabel="name" populateNewDataset={populateNewDataset}  currentDataSet={ currentItem.hasOwnProperty('roles') ? currentItem.roles : initialRoles  } />
       )
   }
 

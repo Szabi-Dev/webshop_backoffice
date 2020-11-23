@@ -14,11 +14,29 @@ export default function EditMenuItem(props) {
         setCurrentItem(currentItem)
     }
 
+    const handleRequests = (requests) => {
+        if (!currentItem.hasOwnProperty('requests')) {
+            currentItem.requests = {}
+        }
+        Object.assign( currentItem.requests, requests )
+        setCurrentItem(currentItem)
+        console.log(currentItem)
+    }
+
+    const handleComplexObjectList = (objectList) => {
+        Object.assign(currentItem, objectList )
+        setCurrentItem(currentItem)
+        console.log(currentItem)
+    }
+
+
     const openModal = () => {
         setIsOpen(true);
         let newProps = {
             currentItem: props.currentItem,
-            handleEditChange : handleChange
+            handleEditChange : handleChange,
+            addRequest : handleRequests,
+            handleComplexObject: handleComplexObjectList
         }
 
         props.editTabs.map( (editTab) => (
