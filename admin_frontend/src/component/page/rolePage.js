@@ -7,7 +7,7 @@ import {RestCaller} from '../../services/util/restCaller';
 
 
 import { RoleAddGeneralTab, RoleAddPrivilegeTab } from '../dataTable/form/roleAddForm';
-import { RoleEditGeneralTab } from '../dataTable/form/roleEditForm';
+import { RoleEditGeneralTab, RoleEditPrivilegesTab } from '../dataTable/form/roleEditForm';
 import {ROLE_URI} from '../../services/util/constants'
 
 
@@ -48,7 +48,8 @@ export default function RolePage(){
     ]
 
     const editModaltabs = [
-        {id: 'general', displayName: "General", index: 0, content:  <RoleEditGeneralTab /> }
+        {id: 'general', displayName: "General", index: 0, content:  <RoleEditGeneralTab /> },
+        {id: 'privileges', displayName: "Privileges", index: 1, content:  <RoleEditPrivilegesTab /> }
       ]
 
     const openModal = () => {
