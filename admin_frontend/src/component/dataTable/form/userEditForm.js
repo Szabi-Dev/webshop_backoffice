@@ -32,6 +32,7 @@ const UserEditRolesTab  = (props) => {
         setCurrentItem(currentItem)
         setCurrentRoles([...newDataset])
         props.addRequest({"role" : requests})
+        
         props.handleComplexObject({ "roles" : newDataset})
     }
 
@@ -61,7 +62,7 @@ const UserEditRolesTab  = (props) => {
     React.useEffect (() => { fetchRolesForCurrentItem() }, [])
     
     return (
-        <FormManyToMany alldataList={alldataList} optionLabel="name" populateNewDataset={populateNewDataset}  currentDataSet={ currentItem.hasOwnProperty('roles') ? currentItem.roles : initialRoles  } />
+        <FormManyToMany alldataList={alldataList} optionLabel="name" populateNewDataset={populateNewDataset}  currentDataSet={ currentItem.hasOwnProperty('roles') ? currentItem.roles : currentRoles  } />
       )
   }
 
