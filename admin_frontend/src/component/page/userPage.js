@@ -6,7 +6,7 @@ import SearchBar from '../dataTable/common/searchBar'
 import AddModal from '../dataTable/modal/addModal'
 import BasicTable from '../dataTable/common/table'
 import Button from '@material-ui/core/Button';
-import { UserEditGeneralTab } from '../dataTable/form/userEditForm';
+import { UserEditGeneralTab, UserEditRolesTab } from '../dataTable/form/userEditForm';
 
 const columns = [
     { field: 'id', headerName: 'ID' },
@@ -48,7 +48,8 @@ export default function UserPage(){
     ]
 
     const editModaltabs = [
-        {id: 'general', displayName: "General", index: 0, content:  <UserEditGeneralTab /> }
+        {id: 'general', displayName: "General", index: 0, content:  <UserEditGeneralTab /> },
+        {id: 'roles', displayName: "Roles", index: 1, content:  <UserEditRolesTab /> }
       ]
 
     const openModal = () => {

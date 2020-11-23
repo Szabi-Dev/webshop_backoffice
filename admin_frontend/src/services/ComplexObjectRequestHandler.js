@@ -3,15 +3,19 @@ import React from 'react'
 export const CompexObjectRequestHandler = () => {
 
     const getRequests = (newSet, oldSet, url, foreignIdName) =>{
-        let toAdd =  newSet.filter(x => !oldSet.includes(x))
-        let toRemove =  oldSet.filter(x => !newSet.includes(x))
         let requests = []
-        toAdd.map ((dataToAdd) => {
-            let req = createRequest(dataToAdd, "PATCH", url, foreignIdName)
+        
+        let newsetIds = returnIds(newSet)
+        let oldsetIds = returnIds(oldSet)
+        let toAdd =  newsetIds.filter(x => !oldsetIds.includes(x))
+        let toRemove =  oldsetIds.filter(x => !newsetIds.includes(x))
+        
+        toAdd.map ((idToAdd) => {
+            let req = createRequest(idToAdd, "PATCH", url, foreignIdName)
             requests.push(req)
         })
-        toRemove.map((dataToRemove) => {
-            let req = createRequest(dataToRemove, "DELETE", url, foreignIdName)
+        toRemove.map((idToRemove) => {
+            let req = createRequest(idToRemove, "DELETE", url, foreignIdName)
             requests.push(req)
         })
 
@@ -19,13 +23,21 @@ export const CompexObjectRequestHandler = () => {
 
     }
 
-    const createRequest = (data, method, url, foreignIdName) =>{
+    const createRequest = (id, method, url, foreignIdName) =>{
         return {
           "method" : method,
-          "url" : url.replace(foreignIdName, data["id"]) 
+          "url" : url.replace(foreignIdName, id) 
         }
     }
   
+    const returnIds = (set) => {
+        let setIdList = []
+        
+        set.forEach(function (item, index) {
+            setIdList.push(item["id"])
+        });
+        return setIdList;
+    }
    
     return {
         getRequests
