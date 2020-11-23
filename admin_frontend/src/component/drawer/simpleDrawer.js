@@ -17,6 +17,7 @@ const menu = [
     {id : "user", displayName : "User", link: "/user"},
     {id : "role", displayName : "Role", link: "/role"},
     {id : "privilege", displayName : "Privilege", link: "/privilege"},
+    {id : "category", displayName : "Category", link: "/category"},
 ]
 
 
