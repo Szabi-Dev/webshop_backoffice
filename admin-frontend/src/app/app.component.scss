@@ -1,19 +1,29 @@
 
 .MainContent {
     display: grid;
-    grid-template-columns: [navbar] 20fr [content] 80fr;
-    height: 100vh;
+    grid-template-columns: 20fr 80fr;
+    grid-template-rows: 5fr 90fr 5fr;
     background-color: lightgray;
+    height: 100vh;
+    grid-template-areas: 
+    "header header"
+    "navbar content"
+    "footer footer";
     
+    .Header {
+        grid-area: header;
+        background-color: lightsalmon;
+        position: sticky;
+        top: 0;
+    }
+
     .NavigationBar {
-        grid-column: navbar;
+        grid-area: navbar;
         background-color: palegreen;
 
 
         .NavBarItem {
             cursor: pointer;
-            font-size: 20px;
-            font-family: 'Courier New', Courier, monospace;
             padding: 0 0.5em 0.5em 0.5em;
         }
 
@@ -23,6 +33,13 @@
     }
 
     .PageContent {
-        grid-column: content;
+        grid-area: content;
+    }
+
+    .Footer {
+        grid-area: footer;
+        background-color: lightsteelblue;
+        position: sticky;
+        bottom: 0;
     }
 }
