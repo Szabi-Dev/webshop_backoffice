@@ -1,0 +1,13 @@
+
+.MainContent {
+    display: grid;
+    grid-template-columns: [navbar] 20fr [content] 80fr;
+
+    .NavigationBar {
+        grid-column: navbar;
+    }
+
+    .PageContent {
+        grid-column: content;
+    }
+}
